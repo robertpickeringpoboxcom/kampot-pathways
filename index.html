@@ -61,6 +61,24 @@
       </div>
     </div>
 
+    <!-- ===== LANGUAGE SWITCHER (mobile, always visible) =====
+         Robert flagged that on mobile the switcher was hidden inside the
+         hamburger menu, so a non-English-speaking visitor had no way to
+         notice translations even existed without opening the menu first.
+         Kept directly in the header row instead — visible the instant the
+         page loads, whether the menu is open or not. "English" is
+         abbreviated to "EN" here purely to keep the row compact next to
+         the logo and menu icon; ខ្មែរ/中文 are already short enough as-is.
+         Uses the same [data-lang] buttons/JS as the desktop switcher (see
+         js/app.js's updateLangSwitcherUI/initLanguageSwitcher — both
+         select every [data-lang] element on the page, so no script
+         changes were needed for this). -->
+    <div class="flex md:hidden items-center gap-0.5 text-xs font-medium text-stone-500 mr-1">
+      <button type="button" data-lang="en" class="kp-lang-btn px-1.5 py-1 rounded" aria-pressed="true">EN</button>
+      <button type="button" data-lang="km" class="kp-lang-btn px-1.5 py-1 rounded" aria-pressed="false">ខ្មែរ</button>
+      <button type="button" data-lang="zh" class="kp-lang-btn px-1.5 py-1 rounded" aria-pressed="false">中文</button>
+    </div>
+
     <button
       id="kp-nav-toggle"
       type="button"
@@ -82,13 +100,6 @@
     <a href="#goods" data-i18n="nav.goods" class="py-1">Goods for Sale</a>
     <a href="#services" data-i18n="nav.services" class="py-1">IT Services</a>
     <a href="#contact" data-i18n="nav.contact" class="py-1">Contact</a>
-
-    <!-- ===== LANGUAGE SWITCHER (mobile) ===== -->
-    <div class="flex items-center gap-1 pt-2 mt-1 border-t border-stone-200">
-      <button type="button" data-lang="en" class="kp-lang-btn px-3 py-1.5 rounded" aria-pressed="true">English</button>
-      <button type="button" data-lang="km" class="kp-lang-btn px-3 py-1.5 rounded" aria-pressed="false">ខ្មែរ</button>
-      <button type="button" data-lang="zh" class="kp-lang-btn px-3 py-1.5 rounded" aria-pressed="false">中文</button>
-    </div>
   </nav>
 </header>
 
