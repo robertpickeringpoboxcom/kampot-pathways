@@ -72,11 +72,24 @@
          Uses the same [data-lang] buttons/JS as the desktop switcher (see
          js/app.js's updateLangSwitcherUI/initLanguageSwitcher — both
          select every [data-lang] element on the page, so no script
-         changes were needed for this). -->
-    <div class="flex md:hidden items-center gap-0.5 text-xs font-medium text-stone-500 mr-1">
-      <button type="button" data-lang="en" class="kp-lang-btn px-1.5 py-1 rounded" aria-pressed="true">EN</button>
-      <button type="button" data-lang="km" class="kp-lang-btn px-1.5 py-1 rounded" aria-pressed="false">ខ្មែរ</button>
-      <button type="button" data-lang="zh" class="kp-lang-btn px-1.5 py-1 rounded" aria-pressed="false">中文</button>
+         changes were needed for this).
+
+         Sizing note: the first version of this row used px-1.5/py-1 with
+         only a 2px gap between buttons — each button ended up only
+         ~24-27px, well under the ~44px minimum touch target Apple/Google
+         both recommend, and with almost no separation between them. On a
+         real phone this made ខ្មែរ (sitting directly between EN and 中文)
+         easy to miss-tap, especially since its glyphs render narrower
+         than the Latin/Chinese ones at small sizes — reported as
+         "clicking Khmer doesn't do anything." Padding bumped to
+         px-2.5/py-2, gap to 2 (8px), and text-xs to text-sm — each button
+         is now ~36-38px tall/wide with clear separation, confirmed to
+         still fit next to the logo and menu icon down to a 360px-wide
+         viewport (older/smaller phones), not just 375px+. -->
+    <div class="flex md:hidden items-center gap-2 text-sm font-medium text-stone-500 mr-1">
+      <button type="button" data-lang="en" class="kp-lang-btn px-2.5 py-2 rounded" aria-pressed="true">EN</button>
+      <button type="button" data-lang="km" class="kp-lang-btn px-2.5 py-2 rounded" aria-pressed="false">ខ្មែរ</button>
+      <button type="button" data-lang="zh" class="kp-lang-btn px-2.5 py-2 rounded" aria-pressed="false">中文</button>
     </div>
 
     <button
