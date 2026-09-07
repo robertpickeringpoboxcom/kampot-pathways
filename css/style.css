@@ -1,0 +1,176 @@
+/* ==========================================================================
+   style.css — Kampot Pathways
+   --------------------------------------------------------------------------
+   Tailwind (loaded via CDN in index.html) handles almost all layout and
+   utility styling. This file only holds the handful of things Tailwind's
+   utility classes can't reach: interactive states on the inline SVG block
+   plan, the popup modal's open/close animation, and small responsive
+   fixes. Keep additions here to a minimum — if it can be a Tailwind class
+   in the HTML, put it there instead, so the two don't drift out of sync.
+   ========================================================================== */
+
+/* --- Block plan SVG ------------------------------------------------------ */
+
+/* The plan is tall and narrow (25m wide x 74m deep block), so it was being
+   throttled by max-height: on most screens 80vh was reached long before
+   100% width was, and the SVG's default preserveAspectRatio then shrank
+   the whole drawing (labels included) down to fit that height — much
+   smaller than the width available, especially on large monitors. Sizing
+   is now controlled purely by the width of its container in index.html
+   (see #property .kp-plan-frame), with height following automatically. */
+#block-plan {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Applied by app.js to every SVG element that has matching data in
+   propertyData — i.e. every part of the plan that opens a popup. */
+#block-plan .kp-clickable {
+  cursor: pointer;
+  transition: filter 0.15s ease, opacity 0.15s ease;
+}
+
+#block-plan .kp-clickable:hover,
+#block-plan .kp-clickable:focus-visible,
+#block-plan .kp-clickable.kp-active {
+  filter: brightness(1.2) saturate(1.3);
+  outline: 2px solid #ffffff;
+  outline-offset: 1px;
+}
+
+#block-plan .kp-clickable:focus-visible {
+  outline: 2px solid #2563eb;
+}
+
+/* Every <text> label sits visually on top of its shape (e.g. "Bed 1" inside
+   the bedroom-1 rect). Without this, a click that lands on the letters
+   themselves hits the text element instead of the shape underneath, and
+   nothing happens (text elements aren't wired to any popup). Turning off
+   pointer events on all label text lets every click pass straight through
+   to the coloured shape beneath it, wherever inside the shape you tap. */
+#block-plan text {
+  pointer-events: none;
+  /* The SVG's root element sets font-family: Arial, sans-serif (see
+     index.html) for the English labels. Appending the Khmer/Chinese web
+     fonts here doesn't override that for Latin text — the browser only
+     reaches for a fallback font for the specific characters Arial can't
+     render — so numbers/units stay in Arial and translated labels (from
+     js/app.js's translateSvgLabels) pick up the right script automatically,
+     without needing to swap font-family based on the selected language. */
+  font-family: Arial, "Noto Sans Khmer", "Noto Sans SC", sans-serif;
+}
+
+/* --- Popup modal ----------------------------------------------------------
+   Shown/hidden by toggling the `hidden` attribute (from app.js) plus this
+   fade/scale transition for a less abrupt open. */
+
+#kp-modal-backdrop {
+  transition: opacity 0.2s ease;
+}
+
+#kp-modal-panel {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#kp-modal-backdrop[hidden] {
+  display: none;
+}
+
+#kp-modal-backdrop.kp-modal-closed #kp-modal-panel {
+  opacity: 0;
+  transform: scale(0.96) translateY(8px);
+}
+
+/* --- Photo strip / gallery scrollbar -------------------------------------
+   A slim, unobtrusive scrollbar for the horizontal thumbnail strip and the
+   gallery grid overflow, since Tailwind's play CDN doesn't ship a
+   scrollbar plugin. */
+
+.kp-scroll-thin::-webkit-scrollbar {
+  height: 6px;
+}
+.kp-scroll-thin::-webkit-scrollbar-thumb {
+  background-color: #cbd5c9;
+  border-radius: 999px;
+}
+.kp-scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* --- Hero background image --------------------------------------------------
+   Desktop/tablet uses the original landscape photo. Below 640px (roughly
+   phone-width portrait), CSS `cover` on a landscape source would keep the
+   full height and crop the sides down to a fairly narrow strip — usually
+   fine, but here we swap in a dedicated portrait crop instead
+   (20211127_173710-portrait.jpg, cropped and centred on the brightest part
+   of the sunset by Claude — see BlockPlanDrawing.md for how) so the mobile
+   hero is a deliberate composition rather than whatever `cover` happens to
+   keep, and so mobile visitors load a much smaller file. */
+
+/* NOTE: url() in a stylesheet resolves relative to the stylesheet's own
+   location (css/), not to index.html — so these need a "../" to reach the
+   photos sitting next to index.html in the site root. Missing that prefix
+   is why the hero photo wasn't appearing. */
+#kp-hero {
+  background-image: linear-gradient(180deg, rgba(20, 30, 22, 0.35), rgba(20, 30, 22, 0.65)), url("../20211127_173710.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 640px) {
+  #kp-hero {
+    background-image: linear-gradient(180deg, rgba(20, 30, 22, 0.35), rgba(20, 30, 22, 0.65)), url("../20211127_173710-portrait.jpg");
+  }
+}
+
+/* --- Language switcher ----------------------------------------------------
+   Three buttons (EN / ខ្មែរ / 中文) in the header nav and mobile menu, see
+   index.html. js/app.js toggles .kp-lang-active on whichever one matches
+   the current language. */
+
+.kp-lang-btn.kp-lang-active {
+  background-color: #d1fae5; /* emerald-100 */
+  color: #065f46; /* emerald-800 */
+}
+
+/* Belt-and-braces for mobile taps: tells the browser these buttons are
+   tap targets only, not something to interpret as part of a scroll or
+   double-tap-zoom gesture. Shouldn't be strictly necessary (the page's
+   viewport meta tag already disables the old 300ms tap delay in modern
+   browsers), but it's a standard, zero-risk hardening for small
+   interactive buttons and worth having regardless of what turns out to
+   be causing the reported "tapping ខ្មែរ does nothing" issue. */
+.kp-lang-btn {
+  touch-action: manipulation;
+}
+
+/* The switcher always shows all three scripts at once ("English" /
+   "ខ្មែរ" / "中文"), regardless of which language is currently active —
+   so unlike the rest of the page (see body.lang-km/body.lang-zh below),
+   these two buttons need their own font-family fixed permanently, or
+   whichever two scripts aren't the current page language would be stuck
+   relying on the browser's own fallback instead of the web font. */
+.kp-lang-btn[data-lang="km"] {
+  font-family: "Noto Sans Khmer", ui-sans-serif, system-ui, sans-serif;
+}
+.kp-lang-btn[data-lang="zh"] {
+  font-family: "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* --- Khmer / Chinese fonts --------------------------------------------------
+   Tailwind's default sans stack (system-ui etc.) has no Khmer or Chinese
+   glyphs on most platforms, so switching language would otherwise fall
+   back to a generic system font with inconsistent weights, or in the
+   worst case render "tofu" boxes. js/app.js's setLanguage() toggles one
+   of these two classes on <body>; the Noto Sans Khmer / Noto Sans SC web
+   fonts are loaded in index.html's <head>. English (no class) keeps
+   Tailwind's default font stack. */
+
+body.lang-km {
+  font-family: "Noto Sans Khmer", ui-sans-serif, system-ui, sans-serif;
+}
+
+body.lang-zh {
+  font-family: "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+}
