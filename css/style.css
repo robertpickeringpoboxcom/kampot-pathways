@@ -61,6 +61,20 @@
   font-family: Arial, "Noto Sans Khmer", "Noto Sans SC", sans-serif;
 }
 
+/* The Development section embeds a second, static copy of the block plan
+   (no click targets — see index.html's #development section), sized the
+   same way as #block-plan above. */
+#development-plan {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#development-plan text {
+  pointer-events: none;
+  font-family: Arial, "Noto Sans Khmer", "Noto Sans SC", sans-serif;
+}
+
 /* --- Popup modal ----------------------------------------------------------
    Shown/hidden by toggling the `hidden` attribute (from app.js) plus this
    fade/scale transition for a less abrupt open. */

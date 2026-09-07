@@ -45,6 +45,7 @@
     <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
       <a href="#property" data-i18n="nav.property" class="hover:text-stone-900">The Property</a>
       <a href="#gallery" data-i18n="nav.gallery" class="hover:text-stone-900">Gallery</a>
+      <a href="#development" data-i18n="nav.development" class="hover:text-stone-900">Development</a>
       <a href="#goods" data-i18n="nav.goods" class="hover:text-stone-900">Goods for Sale</a>
       <a href="#services" data-i18n="nav.services" class="hover:text-stone-900">IT Services</a>
       <a href="#contact" data-i18n="nav.contact" class="hover:text-stone-900">Contact</a>
@@ -110,6 +111,7 @@
   <nav id="kp-nav-menu" class="hidden md:hidden border-t border-stone-200 bg-stone-50 px-4 py-3 flex flex-col gap-3 text-sm font-medium text-stone-600">
     <a href="#property" data-i18n="nav.property" class="py-1">The Property</a>
     <a href="#gallery" data-i18n="nav.gallery" class="py-1">Gallery</a>
+    <a href="#development" data-i18n="nav.development" class="py-1">Development</a>
     <a href="#goods" data-i18n="nav.goods" class="py-1">Goods for Sale</a>
     <a href="#services" data-i18n="nav.services" class="py-1">IT Services</a>
     <a href="#contact" data-i18n="nav.contact" class="py-1">Contact</a>
@@ -133,14 +135,17 @@
       owner holds Hard Title for the property. Note that these diagrams
       are approximate guidance only.
     </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a href="#property" data-i18n="hero.ctaExplore" class="inline-flex items-center px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium transition-colors">
+    <div class="mt-8 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
+      <a href="#property" data-i18n="hero.ctaExplore" class="flex sm:inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm sm:text-base font-medium transition-colors">
         Explore the property
       </a>
-      <a href="#gallery" data-i18n="hero.ctaGallery" class="inline-flex items-center px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium border border-white/40 transition-colors">
+      <a href="#gallery" data-i18n="hero.ctaGallery" class="flex sm:inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm sm:text-base font-medium border border-white/40 transition-colors">
         View photo gallery
       </a>
-      <a href="https://maps.app.goo.gl/JtVxskDdG5xC8jZj8" target="_blank" rel="noopener" data-i18n="hero.ctaMap" class="inline-flex items-center px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium border border-white/40 transition-colors">
+      <a href="#development" data-i18n="hero.ctaDevelopment" class="flex sm:inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm sm:text-base font-medium border border-white/40 transition-colors">
+        Development
+      </a>
+      <a href="https://www.google.com/maps/place/10%C2%B034'54.8%22N+104%C2%B010'24.5%22E/@10.581875,104.173478,17z/data=!3m1!4b1!4m4!3m3!8m2!3d10.581875!4d104.173478?entry=ttu&amp;g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" data-i18n="hero.ctaMap" class="flex sm:inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm sm:text-base font-medium border border-white/40 transition-colors">
         View on Google Maps
       </a>
     </div>
@@ -1033,6 +1038,772 @@
 
     <div id="kp-gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
       <!-- populated by js/app.js from galleryPhotos -->
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     DEVELOPMENT
+     A full-screen section showing the same scale plan as Property, minus
+     the legend, with a dashed rectangle marking unused land available for
+     future development. Draft — Robert may add more descriptive text
+     once he has reviewed the mockup (see BlockPlanDrawing.md). New UI
+     strings here are English-only for now (see js/i18n-data.js comment) —
+     the site's t() fallback shows English for km/zh until translated.
+     ====================================================================== -->
+<section id="development" class="min-h-screen flex items-center py-16 sm:py-24 border-b border-stone-200 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full">
+    <div class="max-w-2xl mb-10">
+      <h2 data-i18n="development.heading" class="text-3xl sm:text-4xl font-bold tracking-tight text-stone-900">Development Potential</h2>
+      <p data-i18n="development.intro" class="mt-4 text-stone-600">
+        Beyond the house, bungalows and services, a good-sized area of the block is still open — shown dashed below, on the same scale plan as the property above.
+      </p>
+    </div>
+
+    <div class="flex flex-col items-center gap-6">
+      <div class="kp-plan-frame w-full max-w-4xl bg-white rounded-2xl border border-stone-200 p-4 sm:p-6 shadow-sm">
+        <!-- ===== DEVELOPMENT PLAN SVG (inline copy of the block plan, static — no click targets, legend replaced with the proposed area) ===== -->
+        <svg
+   id="development-plan"
+   viewBox="0 0 375 1110"
+   width="375"
+   height="1110"
+   style="font-family: Arial, sans-serif;"
+   version="1.1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   >
+  <defs
+     id="defs54-dev" />
+  <!-- ============================================================
+       RIVER — full width, behind all river objects, to retaining wall
+       ============================================================ -->
+  <rect
+     id="kampot-river-dev"
+     x="0"
+     y="0"
+     width="375"
+     height="131"
+     fill="#4fc3f7" />
+  <text
+     x="40"
+     y="20"
+     text-anchor="start"
+     font-size="11"
+     font-weight="bold"
+     fill="#01579b"
+     id="text1-dev">Kampot River</text>
+  <!-- ============================================================
+       BLOCK BOUNDARY (land fill — sits below retaining wall)
+       ============================================================ -->
+  <rect
+     id="block-boundary-dev"
+     x="0"
+     y="133"
+     width="375"
+     height="974"
+     fill="#e8f5e9"
+     stroke="#5d4037"
+     stroke-width="3" />
+  <!-- ============================================================
+       PONTOON (rect7): x=165.38, y=79.77, w=37.24, h=34.01
+       Floats in river above deck
+       ============================================================ -->
+  <rect
+     id="pontoon-dev"
+     x="165.38"
+     y="79.77"
+     width="37.24"
+     height="34.01"
+     fill="#263238"
+     stroke="#546e7a"
+     stroke-width="1.5"
+     stroke-dasharray="4,2" />
+  <text
+     x="183.99"
+     y="98"
+     text-anchor="middle"
+     font-size="6.5"
+     fill="white"
+     id="text2-dev">Pontoon</text>
+  <text
+     x="183.99"
+     y="108"
+     text-anchor="middle"
+     font-size="6"
+     fill="#90a4ae"
+     id="text3-dev">2.5×2.5m</text>
+  <!-- ============================================================
+       DECK — L-shaped brown path
+       Main body (rect5): x=74.46, y=88.13, w=88.50, h=44.25
+         → right edge = 162.96, bottom = 132.38
+       Right arm (rect6): x=196.78, y=115.84, w=32.38, h=16.54
+         → right edge = 229.16, bottom = 132.38
+       L-path: main body left+top+partial-right, then step across to right arm,
+               right arm top+right+bottom, back across full bottom
+       ============================================================ -->
+  <path
+     id="deck-dev"
+     d="M 74.46,88.13            L 162.96,88.13            L 162.96,115.84            L 196.78,115.84            L 196.78,115.84            L 229.16,115.84            L 229.16,132.38            L 74.46,132.38            Z"
+     fill="#8d6e63"
+     stroke="#4e342e"
+     stroke-width="1.5" />
+  <text
+     x="115"
+     y="115"
+     text-anchor="middle"
+     font-size="8"
+     fill="white"
+     id="text4-dev">Deck  8×2.5m</text>
+  <!-- ============================================================
+       STEPS — 6 grey stripes, 1m wide (15px)
+       Gate right edge: x=170.16+19.43 = 189.59
+       Steps aligned to gate right edge: x=189.59, w=15px
+       y=115.64, h=16.95 (same as Inkscape rect4)
+       Each step = 16.95/6 = 2.825px tall
+       ============================================================ -->
+  <text
+     x="197.09"
+     y="144"
+     text-anchor="middle"
+     font-size="6"
+     fill="#37474f"
+     id="text9-dev">steps</text>
+  <!-- ============================================================
+       RETAINING WALL (with 1m gate centred between wall sections)
+       Left:  x=1.08,   y=131.30, w=166.56, h=4.32
+       Gate:  x=170.16, y=129.86, w=19.43,  h=6.83  (yellow)
+       Right: x=192.19, y=131.35, w=182.34, h=4.27
+       ============================================================ -->
+  <rect
+     id="retaining-wall-left-dev"
+     x="1.08"
+     y="131.30"
+     width="166.56"
+     height="4.32"
+     fill="#6c5353"
+     stroke="#000000"
+     stroke-width="0.5" />
+  <rect
+     id="retaining-wall-gate-dev"
+     x="170.16"
+     y="129.86"
+     width="19.43"
+     height="6.83"
+     fill="#ffd54f"
+     stroke="#f57f17"
+     stroke-width="1" />
+  <text
+     x="179.87"
+     y="135"
+     text-anchor="middle"
+     font-size="5"
+     fill="#5d4037"
+     id="text10-dev">Gate 1m</text>
+  <rect
+     id="retaining-wall-right-dev"
+     x="192.19"
+     y="131.35"
+     width="182.34"
+     height="4.27"
+     fill="#6c5353"
+     stroke="#000000"
+     stroke-width="0.5" />
+  <!-- ============================================================
+       PAVED AREA: x=1.32, y=133.34, w=375.09, h=40.54
+       ============================================================ -->
+  <rect
+     id="paved-area-dev"
+     x="1.32"
+     y="133.34"
+     width="373.68"
+     height="40.54"
+     fill="#cfd8dc"
+     stroke="#90a4ae"
+     stroke-width="1" />
+  <text
+     x="187.5"
+     y="158"
+     text-anchor="middle"
+     font-size="10"
+     fill="#37474f"
+     id="text11-dev">Coconut Garden — 25m × 2.5m</text>
+  <!-- ============================================================
+       HOUSE-CONTAINER
+       Transform translate(-5.7557817, 129.50509) dissolved into coords.
+       ============================================================ -->
+  <g
+     id="house-container-dev">
+    <!-- Main house L-shaped path -->
+    <path
+       id="main-house-dev"
+       d="M 25.46,175.72              L 25.46,445.72              L 144.83,445.72              L 144.83,298.41              L 190.46,298.41              L 190.46,175.72              Z"
+       fill="#b3b3b3"
+       stroke="#000000"
+       stroke-width="2.5" />
+    <!-- bedroom-4: x=25.28, y=175.14, w=66.74, h=39.72 -->
+    <rect
+       id="bedroom-4-dev"
+       x="25.28"
+       y="175.14"
+       width="66.74"
+       height="39.72"
+       fill="#00ff00"
+       stroke="#000000"
+       stroke-width="1.3" />
+    <text
+       x="58.65"
+       y="191"
+       text-anchor="middle"
+       font-size="8"
+       fill="#1b5e20"
+       id="text12-dev">Bed 4</text>
+    <text
+       x="58.65"
+       y="201"
+       text-anchor="middle"
+       font-size="7"
+       fill="#1b5e20"
+       id="text13-dev">4.2×2.5m</text>
+    <!-- bedroom-1: x=24.83, y=212.60, w=58.82, h=58.82 -->
+    <rect
+       id="bedroom-1-dev"
+       x="24.83"
+       y="212.60"
+       width="58.82"
+       height="58.82"
+       fill="#00ff00"
+       stroke="#000000"
+       stroke-width="1.2" />
+    <text
+       x="54.24"
+       y="239"
+       text-anchor="middle"
+       font-size="8"
+       fill="#1b5e20"
+       id="text14-dev">Bed 1</text>
+    <text
+       x="54.24"
+       y="250"
+       text-anchor="middle"
+       font-size="7"
+       fill="#1b5e20"
+       id="text15-dev">4×4m</text>
+    <!-- bedroom-2: x=84.83, y=212.60, w=58.82, h=58.82 -->
+    <rect
+       id="bedroom-2-dev"
+       x="84.83"
+       y="212.60"
+       width="58.82"
+       height="58.82"
+       fill="#00ff00"
+       stroke="#000000"
+       stroke-width="1.2" />
+    <text
+       x="114.24"
+       y="239"
+       text-anchor="middle"
+       font-size="8"
+       fill="#1b5e20"
+       id="text16-dev">Bed 2</text>
+    <text
+       x="114.24"
+       y="250"
+       text-anchor="middle"
+       font-size="7"
+       fill="#1b5e20"
+       id="text17-dev">4×4m</text>
+    <!-- FRONT ENTRANCE (E-W corridor):
+         Between Bed2 bottom (y=271.42) and Bed3 top (y=298.00)
+         Starts 6m from house left wall: house left=25.46, 6m=90px → x=115.46
+         Runs to house right wall: x=190.46
+         Width = 190.46 - 115.46 = 75px (5m)
+         Height = 298.00 - 271.42 = 26.58px (gap between beds)
+         Drawn as open corridor (white fill, dashed border) -->
+    <rect
+       id="entrance-front-dev"
+       x="114.87067"
+       y="270.83069"
+       width="3.2961388"
+       height="27.758644"
+       fill="#ffffff"
+       stroke="#795548"
+       stroke-width="0.321355"
+       stroke-dasharray="5, 3" />
+    <!-- bedroom-3: x=85.09, y=298.00, w=60, h=60 -->
+    <rect
+       id="bedroom-3-dev"
+       x="85.09"
+       y="298.00"
+       width="60"
+       height="60"
+       fill="#00ff00"
+       stroke="#000000"
+       stroke-width="1.2" />
+    <text
+       x="115.09"
+       y="326"
+       text-anchor="middle"
+       font-size="8"
+       fill="#1b5e20"
+       id="text19-dev">Bed 3</text>
+    <text
+       x="115.09"
+       y="337"
+       text-anchor="middle"
+       font-size="7"
+       fill="#1b5e20"
+       id="text20-dev">4×4m</text>
+    <!-- bathroom-1: x=25.78, y=358.95, w=39.17, h=28.49 -->
+    <rect
+       id="bathroom-1-dev"
+       x="25.78"
+       y="358.95"
+       width="39.17"
+       height="28.49"
+       fill="#ff00ff"
+       stroke="#000000"
+       stroke-width="1.2" />
+    <text
+       x="45.37"
+       y="375"
+       text-anchor="middle"
+       font-size="7"
+       fill="white"
+       id="text21-dev">Bath 1</text>
+    <text
+       x="45.37"
+       y="384"
+       text-anchor="middle"
+       font-size="6"
+       fill="white"
+       id="text22-dev">2.5×1.8m</text>
+    <!-- bathroom-2: x=25.86, y=387.60, w=39.17, h=28.49 -->
+    <rect
+       id="bathroom-2-dev"
+       x="25.86"
+       y="387.60"
+       width="39.17"
+       height="28.49"
+       fill="#ff00ff"
+       stroke="#000000"
+       stroke-width="1.2" />
+    <text
+       x="45.37"
+       y="403"
+       text-anchor="middle"
+       font-size="7"
+       fill="white"
+       id="text23-dev">Bath 2</text>
+    <text
+       x="45.37"
+       y="412"
+       text-anchor="middle"
+       font-size="6"
+       fill="white"
+       id="text24-dev">2.5×1.8m</text>
+    <!-- REAR ENTRANCE (N-S corridor):
+         From Bath-2 bottom-right corner: x=25.86+39.17=65.03, y=387.60+28.49=416.09
+         To store-room left edge: x=84.47
+         Runs N-S: x=65.03 to 84.47 (w=19.44), from y=358.95 (Bath-1 top) to y=445.72 (house bottom)
+         Represents the corridor strip between bathrooms and store-room -->
+    <rect
+       id="entrance-rear-dev"
+       x="82.269241"
+       y="414.93646"
+       width="19.551683"
+       height="2.0786102"
+       fill="#ffffff"
+       stroke="#795548"
+       stroke-width="0.232828"
+       stroke-dasharray="5, 3"
+       transform="matrix(0.9999928,0.00379368,-0.04000623,0.99919943,0,0)" />
+    <!-- Laundry: below Bathroom-2, bottom-left of main-house
+         Bath-2 bottom: y=387.60+28.49=416.09
+         House bottom: y=445.72 → h=29.63px (~2m)
+         Same x and width as bathrooms: x=25.78, w=39.17 -->
+    <rect
+       id="laundry-dev"
+       x="25.78"
+       y="416.09"
+       width="39.17"
+       height="29.63"
+       fill="#80deea"
+       stroke="#000000"
+       stroke-width="1.2" />
+    <text
+       x="45.37"
+       y="430"
+       text-anchor="middle"
+       font-size="7"
+       fill="#006064"
+       id="text-laundry1-dev">Laundry</text>
+    <text
+       x="45.37"
+       y="440"
+       text-anchor="middle"
+       font-size="6"
+       fill="#006064"
+       id="text-laundry2-dev">2.5×2m</text>
+
+    <!-- store-room: x=84.47, y=357.60, w=59.76, h=87.10 -->
+    <rect
+       id="store-room-dev"
+       x="84.47"
+       y="357.60"
+       width="59.76"
+       height="87.10"
+       fill="#b3b3b3"
+       stroke="#000000"
+       stroke-width="1.4" />
+    <text
+       x="114.35"
+       y="398"
+       text-anchor="middle"
+       font-size="8"
+       fill="#424242"
+       id="text26-dev">Store</text>
+    <text
+       x="114.35"
+       y="409"
+       text-anchor="middle"
+       font-size="7"
+       fill="#424242"
+       id="text27-dev">4×6m</text>
+  </g>
+  <!-- end house-container -->
+  <!-- ============================================================
+       BUNGALOWS
+       ============================================================ -->
+  <rect
+     id="bungalow-3-dev"
+     x="256.74"
+     y="174.51"
+     width="90"
+     height="60"
+     fill="#ccff00"
+     stroke="#000000"
+     stroke-width="2" />
+  <text
+     x="301.74"
+     y="207"
+     text-anchor="middle"
+     font-size="9"
+     fill="#33691e"
+     id="text28-dev">Bungalow 3</text>
+  <text
+     x="301.74"
+     y="219"
+     text-anchor="middle"
+     font-size="7"
+     fill="#33691e"
+     id="text29-dev">6×4m</text>
+  <rect
+     id="bungalow-1-dev"
+     x="291.24"
+     y="309.51"
+     width="60"
+     height="75"
+     fill="#ccff00"
+     stroke="#000000"
+     stroke-width="2" />
+  <text
+     x="321.24"
+     y="347"
+     text-anchor="middle"
+     font-size="9"
+     fill="#33691e"
+     id="text30-dev">Bungalow 1</text>
+  <text
+     x="321.24"
+     y="359"
+     text-anchor="middle"
+     font-size="7"
+     fill="#33691e"
+     id="text31-dev">5×4m</text>
+  <rect
+     id="bungalow-2-dev"
+     x="291.24"
+     y="429.51"
+     width="60"
+     height="97.5"
+     fill="#ccff00"
+     stroke="#000000"
+     stroke-width="2" />
+  <text
+     x="321.24"
+     y="478"
+     text-anchor="middle"
+     font-size="9"
+     fill="#33691e"
+     id="text32-dev">Bungalow 2</text>
+  <text
+     x="321.24"
+     y="490"
+     text-anchor="middle"
+     font-size="7"
+     fill="#33691e"
+     id="text33-dev">6.5×4m</text>
+  <!-- ============================================================
+       WATER TANK: cx=29.28, cy=461.55, r=15
+       ============================================================ -->
+  <circle
+     id="water-tank1-dev"
+     cx="29.28"
+     cy="461.55"
+     r="15"
+     fill="#808080"
+     stroke="#000000"
+     stroke-width="2" />
+  <text
+     x="29.28"
+     y="464"
+     text-anchor="middle"
+     font-size="6.5"
+     fill="white"
+     id="text34-dev">Tank</text>
+  <!-- ============================================================
+       PARKING / WORKSHOP BLOCK
+       ============================================================ -->
+  <rect
+     id="parking-moto-dev"
+     x="24.24"
+     y="504.51"
+     width="60"
+     height="90"
+     fill="#00ffff"
+     stroke="#000000"
+     stroke-width="2" />
+  <text
+     x="54.24"
+     y="546"
+     text-anchor="middle"
+     font-size="8"
+     fill="#006064"
+     id="text35-dev">Parking</text>
+  <text
+     x="54.24"
+     y="557"
+     text-anchor="middle"
+     font-size="7"
+     fill="#006064"
+     id="text36-dev">Moto</text>
+  <rect
+     id="workshop-dev"
+     x="24.24"
+     y="594.51"
+     width="60"
+     height="90"
+     fill="#d35f5f"
+     stroke="#000000"
+     stroke-width="2" />
+  <text
+     x="54.24"
+     y="636"
+     text-anchor="middle"
+     font-size="8"
+     fill="white"
+     id="text37-dev">Workshop</text>
+  <text
+     x="54.24"
+     y="647"
+     text-anchor="middle"
+     font-size="7"
+     fill="white"
+     id="text38-dev">6×4m</text>
+  <rect
+     id="parking-vehicle-dev"
+     x="24.24"
+     y="684.51"
+     width="60"
+     height="90"
+     fill="#008080"
+     stroke="#000000"
+     stroke-width="2" />
+  <text
+     x="54.24"
+     y="726"
+     text-anchor="middle"
+     font-size="8"
+     fill="white"
+     id="text39-dev">Parking</text>
+  <text
+     x="54.24"
+     y="737"
+     text-anchor="middle"
+     font-size="7"
+     fill="white"
+     id="text40-dev">Vehicle</text>
+  <!-- ============================================================
+       BOTTOM BOUNDARY — Fence and Gate (4m = 60px, centred)
+       ============================================================ -->
+  <!-- BB fence: gate at x=32.36, w=60 → gate right edge = 92.36
+       fence-left: x=1.48 to x=32.36 (w=30.88)
+       fence-right: x=92.36 to x=373.5 (w=281.14) -->
+  <rect
+     id="fence-left-dev"
+     x="1.4847711"
+     y="1102.6969"
+     width="30.872372"
+     height="4"
+     fill="#5d4037" />
+  <rect
+     id="gate-bottom-dev"
+     x="32.357143"
+     y="1102.4286"
+     width="60"
+     height="8"
+     fill="#ffd54f"
+     stroke="#f57f17"
+     stroke-width="1.5" />
+  <text
+     x="62.357143"
+     y="1108.1428"
+     text-anchor="middle"
+     font-size="7px"
+     fill="#e65100"
+     id="text41-dev">Gate 4m</text>
+  <rect
+     id="fence-right-dev"
+     x="92.357143"
+     y="1102.6969"
+     width="281.14"
+     height="4"
+     fill="#5d4037" />
+  <text
+     x="187.5"
+     y="1121.7142"
+     text-anchor="middle"
+     font-size="8px"
+     fill="#546e7a"
+     id="text42-dev">— Access Road —</text>
+  <!-- ============================================================
+       COMPASS
+       ============================================================ -->
+  <!-- Compass: centred at (345, 102)
+       N points RIGHT (right boundary = North)
+       Arrow drawn horizontally: from centre pointing right
+       All text positioned absolutely, no rotation needed -->
+  <g id="compass-dev">
+    <circle cx="345" cy="102" r="18"
+            fill="#ffffff" fill-opacity="0.9"
+            stroke="#90a4ae" stroke-width="1"
+            id="circle42-dev"/>
+    <!-- N label on right -->
+    <text x="358" y="106" text-anchor="middle"
+          font-size="9px" font-weight="bold"
+          fill="#c62828" id="text43-dev">N</text>
+    <!-- S label on left -->
+    <text x="332" y="106" text-anchor="middle"
+          font-size="7px" fill="#546e7a" id="text44-dev">S</text>
+    <!-- W label on top (top boundary = West) -->
+    <text x="345" y="90" text-anchor="middle"
+          font-size="7px" fill="#546e7a" id="text45-dev">W</text>
+    <!-- E label on bottom -->
+    <text x="345" y="120" text-anchor="middle"
+          font-size="7px" fill="#546e7a" id="text46-dev">E</text>
+    <!-- Arrow pointing right toward N -->
+    <line x1="345" y1="102" x2="355" y2="102"
+          stroke="#c62828" stroke-width="2"
+          id="line46-dev"/>
+  </g>
+  <!-- ============================================================
+       LEGEND
+       ============================================================ -->
+  <rect
+     style="fill:#c83737;stroke:#000000;stroke-width:0.42550417"
+     id="step1-dev"
+     width="6.0542998"
+     height="14.521198"
+     x="190.68565"
+     y="116.49303" />
+  <rect
+     style="font-family:Arial, sans-serif;fill:#c83737;stroke:#000000;stroke-width:0.42550417"
+     id="step2-dev"
+     width="6.0542998"
+     height="14.521198"
+     x="197.09767"
+     y="116.52625" />
+  <rect
+     style="font-family:Arial, sans-serif;fill:#c83737;stroke:#000000;stroke-width:0.425504"
+     id="step3-dev"
+     width="6.0542998"
+     height="14.521198"
+     x="203.3199"
+     y="116.42704" />
+  <rect
+     style="font-family:Arial, sans-serif;fill:#c83737;stroke:#000000;stroke-width:0.425504"
+     id="step4-dev"
+     width="6.0542998"
+     height="14.521198"
+     x="209.73192"
+     y="116.46027" />
+  <rect
+     style="font-family:Arial, sans-serif;fill:#c83737;stroke:#000000;stroke-width:0.425504"
+     id="step5-dev"
+     width="6.0542998"
+     height="14.521198"
+     x="216.28418"
+     y="116.4449" />
+  <rect
+     style="font-family:Arial, sans-serif;fill:#c83737;stroke:#000000;stroke-width:0.425504"
+     id="step6-dev"
+     width="6.0542998"
+     height="14.521198"
+     x="222.74977"
+     y="116.58527" />
+
+  <!-- ============================================================
+       PROPOSED NEW DEVELOPMENT AREA (draft — see BlockPlanDrawing.md)
+       Rectangle derived from Robert's BlockPlanDevelopMent.svg guide:
+       x=221.14, y=603.43, w=132, h=469.71 (px) = 8.8m x 31.3m = ~276 sqm
+       ============================================================ -->
+  <g id="proposed-development">
+    <rect
+       id="proposed-development-area"
+       x="221.14285"
+       y="603.42859"
+       width="132"
+       height="469.71429"
+       fill="#fff8e1"
+       fill-opacity="0.55"
+       stroke="#c62828"
+       stroke-width="2"
+       stroke-dasharray="8,5" />
+    <text
+       data-i18n="development.rectLabel1"
+       x="287.14285"
+       y="822"
+       text-anchor="middle"
+       font-size="9"
+       font-weight="bold"
+       fill="#b71c1c"
+       id="text-dev-label1">Proposed new</text>
+    <text
+       data-i18n="development.rectLabel2"
+       x="287.14285"
+       y="834"
+       text-anchor="middle"
+       font-size="9"
+       font-weight="bold"
+       fill="#b71c1c"
+       id="text-dev-label2">development area</text>
+    <text
+       x="287.14285"
+       y="855"
+       text-anchor="middle"
+       font-size="10"
+       font-weight="bold"
+       fill="#b71c1c"
+       id="text-dev-area">&#8776; 276 m&#178;</text>
+  </g>
+
+</svg>
+        <p data-i18n="development.tapHint" class="text-xs text-stone-500 mt-3 text-center">
+          North points right — the top boundary faces West, directly onto the river.
+        </p>
+      </div>
     </div>
   </div>
 </section>

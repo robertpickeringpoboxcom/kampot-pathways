@@ -1,13 +1,13 @@
 /* ==========================================================================
    i18n-data.js — Kampot Pathways translations (English / Khmer / Mandarin)
    --------------------------------------------------------------------------
-   *** DRAFTED BY CLAUDE — NOT YET REVIEWED BY A FLUENT SPEAKER ***
-   The Khmer (km) and Mandarin (zh) text below was machine-translated by
-   Claude. It should read correctly and convey the right meaning, but
-   property/sale wording deserves a native check before the site goes
-   live in those languages — Koemyi is the obvious person to check the
-   Khmer column. Nothing here needs to change structurally to fix a
-   wording issue — just edit the string in place.
+   *** MANDARIN (zh) NOT YET REVIEWED BY A FLUENT SPEAKER ***
+   Khmer (km) was machine-translated by Claude, then reviewed in full by
+   Koemyi (7 Sept 2026) — no errors found, cleared for live use. Mandarin
+   (zh) is still Claude's machine translation only and still needs a
+   native check before the site goes live in that language. Nothing here
+   needs to change structurally to fix a wording issue — just edit the
+   string in place.
 
    English (en) is always the fallback: if a key is missing for km or zh,
    js/app.js shows the English text rather than breaking.
@@ -51,6 +51,7 @@ const uiStrings = {
     "nav.goods": "Goods for Sale",
     "nav.services": "IT Services",
     "nav.contact": "Contact",
+    "nav.development": "Development",
     "nav.toggle": "Toggle menu",
 
     "hero.eyebrow": "Kampot, Cambodia",
@@ -58,6 +59,7 @@ const uiStrings = {
     "hero.subtitle": "A 74m × 25m riverfront block with a 4-bedroom house, three bungalows, a private deck and pontoon — for sale directly from the owner. The owner holds Hard Title for the property. Note that these diagrams are approximate guidance only.",
     "hero.ctaExplore": "Explore the property",
     "hero.ctaGallery": "View photo gallery",
+    "hero.ctaDevelopment": "Development",
     "hero.ctaMap": "View on Google Maps",
 
     "property.heading": "The Property",
@@ -84,6 +86,12 @@ const uiStrings = {
 
     "gallery.heading": "Gallery",
     "gallery.intro": "Sunsets over Bokor, river mornings, and life on the water — general views of the property and its surroundings.",
+
+    "development.heading": "Development Potential",
+    "development.intro": "Beyond the house, bungalows and services, a good-sized area of the block is still open — shown dashed below, on the same scale plan as the property above.",
+    "development.tapHint": "North points right — the top boundary faces West, directly onto the river.",
+    "development.rectLabel1": "Proposed new",
+    "development.rectLabel2": "development area",
 
     "goods.heading": "Goods for Sale",
     "goods.body": "Guitars, instruments, effects pedals, and woodworking & metalworking tools — listings coming soon.",
