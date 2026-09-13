@@ -9,11 +9,26 @@
 <!-- Tailwind CSS (play CDN — no build step, matches the project's static-only tech stack) -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
+  /* Design tokens — Round 10 design refresh (see kampotpathways-design-brief.md
+     and BlockPlanDrawing.md Round 10). Grounded in the actual place (river,
+     tide, red laterite earth) instead of Tailwind's default blue/gray or the
+     cliché cream/terracotta pairing. Each color is a full 50–950 ramp so
+     hover/darker states (river-700, laterite-500, etc.) work consistently;
+     the exact hex the brief specified for each color sits at the *-600 step. */
   tailwind.config = {
     theme: {
       extend: {
         colors: {
-          river: { 50: "#eef7f9", 600: "#0e7490" },
+          river:    { DEFAULT: "#1b4b4a", 50: "#7cd0ce", 100: "#62c6c4", 200: "#41b4b2", 300: "#338f8d", 400: "#276d6b", 500: "#205a59", 600: "#1b4b4a", 700: "#102d2c", 800: "#050f0f", 900: "#030807", 950: "#030807" },
+          tide:     { DEFAULT: "#4c8c82", 50: "#d5e8e5", 100: "#bedcd7", 200: "#9dcac3", 300: "#7cb8ae", 400: "#5ea89c", 500: "#53998e", 600: "#4c8c82", 700: "#3e7269", 800: "#2f5751", 900: "#213d38", 950: "#162926" },
+          laterite: { DEFAULT: "#a8552e", 50: "#f1d7cb", 100: "#e9c1af", 200: "#dea387", 300: "#d3845f", 400: "#c9683b", 500: "#b85d32", 600: "#a8552e", 700: "#884525", 800: "#68351c", 900: "#482414", 950: "#30180d" },
+          mist: "#F6F4EF",
+          charcoal: "#22282A",
+          coconut: "#E8EDE3",
+        },
+        fontFamily: {
+          serif: ["Fraunces", "ui-serif", "Georgia", "serif"],
+          sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
         },
       },
     },
@@ -23,42 +38,54 @@
 <!-- Khmer + Chinese web fonts for the language switcher (see css/style.css
      for the font-family rules that use these — Tailwind's default sans
      stack has no Khmer or Chinese glyphs, and the system fallback varies
-     too much by device to rely on). English keeps Tailwind's default. -->
+     too much by device to rely on). Latin text uses Fraunces (headings)
+     and Inter (body) — see the design tokens above. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body class="bg-stone-50 text-stone-800 font-sans antialiased">
+<body class="bg-mist text-charcoal font-sans antialiased">
 
 <!-- ======================================================================
      NAV
      ====================================================================== -->
-<header class="fixed top-0 inset-x-0 z-40 bg-stone-50/90 backdrop-blur border-b border-stone-200">
+<header class="fixed top-0 inset-x-0 z-40 site-nav border-b border-river/10">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-    <a href="#top" class="font-semibold text-lg tracking-tight text-stone-900">
-      Kampot Pathways
+    <a href="#top" class="flex items-center gap-3 text-river">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <path d="M3 8c3-2.2 6-2.2 9 0s6 2.2 9 0"/>
+          <path d="M3 13c3-2.2 6-2.2 9 0s6 2.2 9 0"/>
+          <path d="M3 18c3-2.2 6-2.2 9 0s6 2.2 9 0"/>
+        </svg>
+      </span>
+      <span class="flex flex-col">
+        <span class="font-serif font-semibold text-lg tracking-tight leading-tight">Kampot Pathways</span>
+        <span class="text-xs uppercase tracking-wider opacity-70">Riverfront · Cambodia</span>
+      </span>
     </a>
 
-    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
-      <a href="#property" data-i18n="nav.property" class="hover:text-stone-900">The Property</a>
-      <a href="#gallery" data-i18n="nav.gallery" class="hover:text-stone-900">Gallery</a>
-      <a href="#development" data-i18n="nav.development" class="hover:text-stone-900">Development</a>
-      <a href="#goods" data-i18n="nav.goods" class="hover:text-stone-900">Goods for Sale</a>
-      <a href="#services" data-i18n="nav.services" class="hover:text-stone-900">IT Services</a>
-      <a href="#contact" data-i18n="nav.contact" class="hover:text-stone-900">Contact</a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-charcoal/80">
+      <a href="#property" data-i18n="nav.property" class="hover:text-river">The Property</a>
+      <a href="#gallery" data-i18n="nav.gallery" class="hover:text-river">Gallery</a>
+      <a href="#development" data-i18n="nav.development" class="hover:text-river">Development</a>
+      <a href="#goods" data-i18n="nav.goods" class="hover:text-river">Goods for Sale</a>
+      <a href="#services" data-i18n="nav.services" class="hover:text-river">IT Services</a>
+      <a href="#retirement" data-i18n="nav.retirement" class="hover:text-river">Retirement Visa</a>
+      <a href="#contact" data-i18n="nav.contact" class="hover:text-river">Contact</a>
     </nav>
 
     <div class="hidden md:flex items-center gap-4">
       <!-- ===== LANGUAGE SWITCHER (desktop) =====
            Each button's data-lang is read by js/app.js's setLanguage().
            .kp-lang-active (see css/style.css) marks the current one. -->
-      <div class="flex items-center gap-1 text-sm font-medium text-stone-500 border-l border-stone-200 pl-4">
-        <button type="button" data-lang="en" class="kp-lang-btn px-2 py-1 rounded hover:text-stone-900" aria-pressed="true">English</button>
-        <button type="button" data-lang="km" class="kp-lang-btn px-2 py-1 rounded hover:text-stone-900" aria-pressed="false">ខ្មែរ</button>
-        <button type="button" data-lang="zh" class="kp-lang-btn px-2 py-1 rounded hover:text-stone-900" aria-pressed="false">中文</button>
+      <div class="flex items-center gap-1 text-sm font-medium text-charcoal/70 border-l border-river/10 pl-4">
+        <button type="button" data-lang="en" class="kp-lang-btn px-2 py-1 rounded hover:text-river" aria-pressed="true">English</button>
+        <button type="button" data-lang="km" class="kp-lang-btn px-2 py-1 rounded hover:text-river" aria-pressed="false">ខ្មែរ</button>
+        <button type="button" data-lang="zh" class="kp-lang-btn px-2 py-1 rounded hover:text-river" aria-pressed="false">中文</button>
       </div>
     </div>
 
@@ -87,7 +114,7 @@
          is now ~36-38px tall/wide with clear separation, confirmed to
          still fit next to the logo and menu icon down to a 360px-wide
          viewport (older/smaller phones), not just 375px+. -->
-    <div class="flex md:hidden items-center gap-2 text-sm font-medium text-stone-500 mr-1">
+    <div class="flex md:hidden items-center gap-2 text-sm font-medium text-charcoal/70 mr-1">
       <button type="button" data-lang="en" class="kp-lang-btn px-2.5 py-2 rounded" aria-pressed="true">EN</button>
       <button type="button" data-lang="km" class="kp-lang-btn px-2.5 py-2 rounded" aria-pressed="false">ខ្មែរ</button>
       <button type="button" data-lang="zh" class="kp-lang-btn px-2.5 py-2 rounded" aria-pressed="false">中文</button>
@@ -99,7 +126,7 @@
       aria-expanded="false"
       aria-controls="kp-nav-menu"
       data-i18n-aria-label="nav.toggle"
-      class="md:hidden p-2 -mr-2 text-stone-700"
+      class="md:hidden p-2 -mr-2 text-river"
     >
       <span class="sr-only">Toggle menu</span>
       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -108,12 +135,13 @@
     </button>
   </div>
 
-  <nav id="kp-nav-menu" class="hidden md:hidden border-t border-stone-200 bg-stone-50 px-4 py-3 flex flex-col gap-3 text-sm font-medium text-stone-600">
+  <nav id="kp-nav-menu" class="hidden md:hidden border-t border-river/10 bg-mist px-4 py-3 flex flex-col gap-3 text-sm font-medium text-charcoal/80">
     <a href="#property" data-i18n="nav.property" class="py-1">The Property</a>
     <a href="#gallery" data-i18n="nav.gallery" class="py-1">Gallery</a>
     <a href="#development" data-i18n="nav.development" class="py-1">Development</a>
     <a href="#goods" data-i18n="nav.goods" class="py-1">Goods for Sale</a>
     <a href="#services" data-i18n="nav.services" class="py-1">IT Services</a>
+    <a href="#retirement" data-i18n="nav.retirement" class="py-1">Retirement Visa</a>
     <a href="#contact" data-i18n="nav.contact" class="py-1">Contact</a>
   </nav>
 </header>
@@ -123,20 +151,21 @@
 <!-- ======================================================================
      HERO
      ====================================================================== -->
-<section id="kp-hero" class="relative h-[85vh] min-h-[480px] flex items-end">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24 w-full text-white">
-    <p data-i18n="hero.eyebrow" class="uppercase tracking-widest text-sm font-medium text-emerald-200 mb-3">Kampot, Cambodia</p>
-    <h1 data-i18n="hero.title" class="text-4xl sm:text-6xl font-bold tracking-tight max-w-2xl">
+<section id="kp-hero" class="relative min-h-screen min-h-[480px] flex items-end">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pb-6 sm:pb-8 w-full text-white">
+    <p data-i18n="hero.eyebrow" class="text-sm font-medium text-tide-100 mb-3">Kampot, Cambodia</p>
+    <h1 data-i18n="hero.title" class="font-serif text-4xl sm:text-6xl font-semibold tracking-tight max-w-2xl">
       Absolute riverfront living on the Kampot River
     </h1>
-    <p data-i18n="hero.subtitle" class="mt-4 text-lg text-stone-100 max-w-2xl">
-      A 74m × 25m riverfront block with a 4-bedroom house, three bungalows,
-      a private deck and pontoon — for sale directly from the owner. The
+    <p data-i18n="hero.subtitle" class="mt-4 text-lg text-mist/90 max-w-2xl">
+      A 70m-deep riverfront block, 25.6m wide at the water narrowing to
+      19m at the street, with a 4-bedroom house, three bungalows, a
+      private deck and pontoon — for sale directly from the owner. The
       owner holds Hard Title for the property. Note that these diagrams
       are approximate guidance only.
     </p>
     <div class="mt-8 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
-      <a href="#property" data-i18n="hero.ctaExplore" class="flex sm:inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm sm:text-base font-medium transition-colors">
+      <a href="#property" data-i18n="hero.ctaExplore" class="flex sm:inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 rounded-full bg-laterite-600 hover:bg-laterite-700 text-white text-sm sm:text-base font-medium transition-colors">
         Explore the property
       </a>
       <a href="#gallery" data-i18n="hero.ctaGallery" class="flex sm:inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm sm:text-base font-medium border border-white/40 transition-colors">
@@ -150,30 +179,36 @@
       </a>
     </div>
   </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span class="mouse"><span class="wheel"></span></span>
+    <span class="hero__scroll-label">Scroll</span>
+  </div>
 </section>
 
 <!-- ======================================================================
      PROPERTY / BLOCK PLAN
      ====================================================================== -->
-<section id="property" class="py-16 sm:py-24 border-b border-stone-200">
+<section id="property" class="py-16 sm:py-24 border-b border-river/10">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="max-w-2xl mb-10">
-      <h2 data-i18n="property.heading" class="text-3xl sm:text-4xl font-bold tracking-tight text-stone-900">The Property</h2>
-      <p data-i18n="property.intro" class="mt-4 text-stone-600">
-        An interactive scale plan of the block — 74m deep, 25m wide, with the
-        Kampot River running the full length of the top boundary. Click (or
-        tap) any building, room or feature below for photos and details.
+      <h2 data-i18n="property.heading" class="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-river">The Property</h2>
+      <p data-i18n="property.intro" class="mt-4 text-charcoal/75">
+        An interactive scale plan of the block — 70m deep, 25.6m wide at the
+        riverfront, narrowing to 19m at the street boundary, with the Kampot
+        River running the full length of the top boundary. Click (or tap)
+        any building, room or feature below for photos and details.
       </p>
     </div>
 
     <div class="flex flex-col items-center gap-10">
-      <div class="kp-plan-frame w-full max-w-4xl bg-white rounded-2xl border border-stone-200 p-4 sm:p-6 shadow-sm">
+      <div class="kp-plan-frame w-full max-w-4xl bg-white rounded-2xl border border-coconut p-4 sm:p-6 shadow-sm">
         <!-- ===== BLOCK PLAN SVG (inline — hydrated with click handlers by js/app.js) ===== -->
         <svg
    id="block-plan"
-   viewBox="0 0 375 1110"
-   width="375"
-   height="1110"
+   viewBox="-8 0 383 1050"
+   width="383"
+   height="1050"
    style="font-family: Arial, sans-serif;"
    version="1.1"
    xmlns="http://www.w3.org/2000/svg"
@@ -201,13 +236,23 @@
      id="text1">Kampot River</text>
   <!-- ============================================================
        BLOCK BOUNDARY (land fill — sits below retaining wall)
+       Not a rectangle — real on-site measurement (8 Sept 2026, see
+       BlockPlanDrawing.md Round 9): Top boundary (river/West end) 25m,
+       Bottom boundary (road/East end) 19m, length 70m. The Left/South
+       edge is irregular, not a single straight taper: it runs flush
+       with x=0 from the top down to the main-house's top-left corner
+       (which real measurement puts 2.20m off this line), angles in to
+       0.6m off the house's bottom-left corner, then continues straight
+       to the 19m-wide bottom-left corner. Right/North edge stays a
+       straight line at x=375 (unchanged, no new measurement given for
+       it). Vertices below are in canvas px (15px = 1m):
+       (0,133) top-left → (375,133) top-right → (375,1047) bottom-right
+       → (90,1047) bottom-left → (16.46,445.72) house-bottom-corner
+       → (-7.54,175.72) house-top-corner → close.
        ============================================================ -->
-  <rect
+  <path
      id="block-boundary"
-     x="0"
-     y="133"
-     width="375"
-     height="974"
+     d="M 0,133 L 375,133 L 375,1047 L 90,1047 L 16.46,445.72 L -7.54,175.72 Z"
      fill="#e8f5e9"
      stroke="#5d4037"
      stroke-width="3" />
@@ -576,6 +621,28 @@
        font-size="7"
        fill="#424242"
        id="text27">4×6m</text>
+    <!-- Open-plan kitchen/dining: the unlabelled grey area bounded by
+         Bed 1, Bed 3, Bath 1 and the two doorways (entrance-front above,
+         entrance-rear below) — no dedicated rect (it's just main-house's
+         own grey fill showing through), so a plain label only, same as
+         "Coconut Garden" above. Placed left of Bed 3, x=25.46-85 (Bed 3's
+         left edge), y=298.41-358 (Bed 3's own height) — moved here from
+         an earlier, wrong first placement to the right of Bed 4, which
+         turned out to be a different, unrelated area of the house. -->
+    <text
+       x="55"
+       y="320"
+       text-anchor="middle"
+       font-size="8"
+       fill="#424242"
+       id="text-kitchen1">Open Plan</text>
+    <text
+       x="55"
+       y="332"
+       text-anchor="middle"
+       font-size="7"
+       fill="#424242"
+       id="text-kitchen2">Kitchen / Dining</text>
   </g>
   <!-- end house-container -->
   <!-- ============================================================
@@ -651,18 +718,22 @@
      fill="#33691e"
      id="text33">6.5×4m</text>
   <!-- ============================================================
-       WATER TANK: cx=29.28, cy=461.55, r=15
+       WATER TANK: cx=48.40, cy=461.55, r=15
+       Repositioned Round 9 — real measurement: 1m from the Left
+       boundary (which at this y sits at x≈18.40, on the straight run
+       between the house's bottom-left corner and the 19m-wide
+       bottom-left corner — see block-boundary comment above).
        ============================================================ -->
   <circle
      id="water-tank1"
-     cx="29.28"
+     cx="48.40"
      cy="461.55"
      r="15"
      fill="#808080"
      stroke="#000000"
      stroke-width="2" />
   <text
-     x="29.28"
+     x="48.40"
      y="464"
      text-anchor="middle"
      font-size="6.5"
@@ -670,10 +741,22 @@
      id="text34">Tank</text>
   <!-- ============================================================
        PARKING / WORKSHOP BLOCK
+       Shifted right Round 9 — real measurement: 2.3m from the Left
+       boundary. "Sits parallel to it" (Robert, Round 9 follow-up) is
+       drawn literally: the whole group is rotated -6.98° about
+       (40.16, 639.51) — a point on the true boundary line at the
+       group's own vertical centre — so its left edge becomes an exact
+       parallel to the boundary's ~7° slope through this stretch,
+       constant 2.3m away along its full height (not just at the
+       centre, as the unrotated Round 9 draft was). The rects/text
+       below keep the same coordinates that draft used; only the
+       enclosing <g>'s rotation is new — rotating about a point already
+       on the boundary preserves that 2.3m offset exactly.
        ============================================================ -->
+  <g id="services-block" transform="rotate(-6.98, 40.16, 639.51)">
   <rect
      id="parking-moto"
-     x="24.24"
+     x="74.66"
      y="504.51"
      width="60"
      height="90"
@@ -681,14 +764,14 @@
      stroke="#000000"
      stroke-width="2" />
   <text
-     x="54.24"
+     x="104.66"
      y="546"
      text-anchor="middle"
      font-size="8"
      fill="#006064"
      id="text35">Parking</text>
   <text
-     x="54.24"
+     x="104.66"
      y="557"
      text-anchor="middle"
      font-size="7"
@@ -696,7 +779,7 @@
      id="text36">Moto</text>
   <rect
      id="workshop"
-     x="24.24"
+     x="74.66"
      y="594.51"
      width="60"
      height="90"
@@ -704,14 +787,14 @@
      stroke="#000000"
      stroke-width="2" />
   <text
-     x="54.24"
+     x="104.66"
      y="636"
      text-anchor="middle"
      font-size="8"
      fill="white"
      id="text37">Workshop</text>
   <text
-     x="54.24"
+     x="104.66"
      y="647"
      text-anchor="middle"
      font-size="7"
@@ -719,7 +802,7 @@
      id="text38">6×4m</text>
   <rect
      id="parking-vehicle"
-     x="24.24"
+     x="74.66"
      y="684.51"
      width="60"
      height="90"
@@ -727,58 +810,65 @@
      stroke="#000000"
      stroke-width="2" />
   <text
-     x="54.24"
+     x="104.66"
      y="726"
      text-anchor="middle"
      font-size="8"
      fill="white"
      id="text39">Parking</text>
   <text
-     x="54.24"
+     x="104.66"
      y="737"
      text-anchor="middle"
      font-size="7"
      fill="white"
      id="text40">Vehicle</text>
+  </g>
   <!-- ============================================================
-       BOTTOM BOUNDARY — Fence and Gate (4m = 60px, centred)
-       ============================================================ -->
-  <!-- BB fence: gate at x=32.36, w=60 → gate right edge = 92.36
-       fence-left: x=1.48 to x=32.36 (w=30.88)
-       fence-right: x=92.36 to x=373.5 (w=281.14) -->
+       BOTTOM BOUNDARY — Fence and Gate (4m = 60px)
+       Repositioned Round 9: block is now 70m long and the
+       bottom boundary is 19m wide (was 25m, unchanged straight top
+       width) — see block-boundary comment above. Fence-left/gate kept
+       at the same offset from the (now narrower) bottom-left corner,
+       shifted +90px (6m) in x to sit on the new corner and -60px (4m)
+       in y for the shorter length; fence-right shortens by the same
+       90px so it still meets the unchanged right boundary at x=375.
+       Gate at x=122.36, w=60 → gate right edge = 182.36
+       fence-left: x=91.48 to x=122.36 (w=30.88)
+       fence-right: x=182.36 to x=373.5 (w=191.14) -->
   <rect
      id="fence-left"
-     x="1.4847711"
-     y="1102.6969"
+     x="91.4847711"
+     y="1042.6969"
      width="30.872372"
      height="4"
      fill="#5d4037" />
   <rect
      id="gate-bottom"
-     x="32.357143"
-     y="1102.4286"
+     x="122.357143"
+     y="1042.4286"
      width="60"
      height="8"
      fill="#ffd54f"
      stroke="#f57f17"
      stroke-width="1.5" />
   <text
-     x="62.357143"
-     y="1108.1428"
+     x="152.357143"
+     y="1048.1428"
      text-anchor="middle"
      font-size="7px"
      fill="#e65100"
      id="text41">Gate 4m</text>
   <rect
      id="fence-right"
-     x="92.357143"
-     y="1102.6969"
-     width="281.14"
+     x="182.357143"
+     y="1042.6969"
+     width="191.14"
      height="4"
      fill="#5d4037" />
   <text
-     x="187.5"
-     y="1121.7142"
+     x="232.5"
+     y="1061.7142"
      text-anchor="middle"
      font-size="8px"
      fill="#546e7a"
@@ -988,34 +1078,34 @@
      x="222.74977"
      y="116.58527" />
 </svg>
-        <p data-i18n="property.tapHint" class="text-xs text-stone-500 mt-3 text-center">
+        <p data-i18n="property.tapHint" class="text-xs text-charcoal/60 mt-3 text-center">
           Tap any coloured area for photos &amp; details. North points right — the top boundary faces West, directly onto the river.
         </p>
       </div>
 
-      <div class="w-full max-w-4xl grid sm:grid-cols-2 gap-x-10 gap-y-6 text-stone-700">
+      <div class="w-full max-w-4xl grid sm:grid-cols-2 gap-x-10 gap-y-6 text-charcoal/85">
         <div>
-          <h3 data-i18n="property.block.heading" class="font-semibold text-stone-900 mb-1">The block</h3>
-          <p data-i18n="property.block.body">74m × 25m, absolute riverfront. The top boundary is a retaining wall directly on the Kampot River, which is tidal — up to 1.5m of daily sea-water tide. A private timber deck and floating pontoon sit out over the water, reached by a gate and six steps down from the paved Coconut Garden.</p>
+          <h3 data-i18n="property.block.heading" class="font-serif font-semibold text-river mb-1">The block</h3>
+          <p data-i18n="property.block.body">70m deep, 25.6m wide at the riverfront narrowing to 19m at the street boundary — an absolute riverfront position. The top boundary is a retaining wall directly on the Kampot River, which is tidal — up to 1.5m of daily sea-water tide. A private timber deck and floating pontoon sit out over the water, reached by a gate and six steps down from the paved Coconut Garden.</p>
         </div>
         <div>
-          <h3 data-i18n="property.house.heading" class="font-semibold text-stone-900 mb-1">Main house</h3>
-          <p data-i18n="property.house.body">198 m² — 4 bedrooms, 2 bathrooms, kitchen/dining, storage and laundry, with covered verandah and both river-side and rear entrances.</p>
+          <h3 data-i18n="property.house.heading" class="font-serif font-semibold text-river mb-1">Main house</h3>
+          <p data-i18n="property.house.body">≈168 m² — 4 bedrooms, 2 bathrooms, kitchen/dining, storage and laundry, with covered verandah and both river-side and rear entrances.</p>
         </div>
         <div>
-          <h3 data-i18n="property.bungalows.heading" class="font-semibold text-stone-900 mb-1">Three bungalows</h3>
+          <h3 data-i18n="property.bungalows.heading" class="font-serif font-semibold text-river mb-1">Three bungalows</h3>
           <p data-i18n="property.bungalows.body">Bungalow 3 sits parallel to the river with open-plan living and direct water views. Bungalows 1 and 2 run along the north boundary — all bungalows have a modern open-plan kitchen and living area, and modern bathrooms with hot shower.</p>
         </div>
         <div>
-          <h3 data-i18n="property.services.heading" class="font-semibold text-stone-900 mb-1">Services</h3>
+          <h3 data-i18n="property.services.heading" class="font-serif font-semibold text-river mb-1">Services</h3>
           <p data-i18n="property.services.body">A dedicated services building along the south boundary houses covered motorcycle parking, a workshop with 8 metres of workbench space, and covered vehicle parking — plus a 5000 litre water storage tank by the house.</p>
         </div>
         <div>
-          <h3 data-i18n="property.connected.heading" class="font-semibold text-stone-900 mb-1">Connected services</h3>
+          <h3 data-i18n="property.connected.heading" class="font-serif font-semibold text-river mb-1">Connected services</h3>
           <p data-i18n="property.connected.body">Water to the house and bungalows is maintained by pumps at mains pressure.</p>
         </div>
         <div>
-          <h3 data-i18n="property.environment.heading" class="font-semibold text-stone-900 mb-1">Local Environment</h3>
+          <h3 data-i18n="property.environment.heading" class="font-serif font-semibold text-river mb-1">Local Environment</h3>
           <p data-i18n="property.environment.body">The property experiences fresh breezes all year round from the sea (3 km away to the South) and from the Kampot River Valley to the North.</p>
         </div>
       </div>
@@ -1026,17 +1116,22 @@
 <!-- ======================================================================
      GALLERY
      ====================================================================== -->
-<section id="gallery" class="py-16 sm:py-24 border-b border-stone-200 bg-white">
+<section id="gallery" class="py-16 sm:py-24 border-b border-river/10 bg-coconut">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="max-w-2xl mb-10">
-      <h2 data-i18n="gallery.heading" class="text-3xl sm:text-4xl font-bold tracking-tight text-stone-900">Gallery</h2>
-      <p data-i18n="gallery.intro" class="mt-4 text-stone-600">
+      <h2 data-i18n="gallery.heading" class="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-river">Gallery</h2>
+      <p data-i18n="gallery.intro" class="mt-4 text-charcoal/75">
         Sunsets over Bokor, river mornings, and life on the water — general
-        views of the property and its surroundings.
+        views of the property and its surroundings. Click any photo to
+        enlarge.
       </p>
     </div>
 
-    <div id="kp-gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+    <!-- CSS columns instead of a fixed grid — each photo keeps its own
+         natural aspect ratio (see initGallery() in js/app.js) and simply
+         flows into whichever column has room next, "masonry"-style,
+         rather than every tile being force-cropped to the same square. -->
+    <div id="kp-gallery-grid" class="columns-2 sm:columns-3 lg:columns-4 gap-3 sm:gap-4">
       <!-- populated by js/app.js from galleryPhotos -->
     </div>
   </div>
@@ -1052,755 +1147,24 @@
      strings here are English-only for now (see js/i18n-data.js comment) —
      the site's t() fallback shows English for km/zh until translated.
      ====================================================================== -->
-<section id="development" class="min-h-screen flex items-center py-16 sm:py-24 border-b border-stone-200 bg-white">
+<section id="development" class="min-h-screen flex items-center py-16 sm:py-24 border-b border-river/10">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full">
     <div class="max-w-2xl mb-10">
-      <h2 data-i18n="development.heading" class="text-3xl sm:text-4xl font-bold tracking-tight text-stone-900">Development Potential</h2>
-      <p data-i18n="development.intro" class="mt-4 text-stone-600">
+      <h2 data-i18n="development.heading" class="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-river">Development Potential</h2>
+      <p data-i18n="development.intro" class="mt-4 text-charcoal/75">
         Beyond the house, bungalows and services, a good-sized area of the block is still open — shown dashed below, on the same scale plan as the property above.
       </p>
     </div>
 
     <div class="flex flex-col items-center gap-6">
-      <div class="kp-plan-frame w-full max-w-4xl bg-white rounded-2xl border border-stone-200 p-4 sm:p-6 shadow-sm">
-        <!-- ===== DEVELOPMENT PLAN SVG (inline copy of the block plan, static — no click targets, legend replaced with the proposed area) ===== -->
-        <svg
-   id="development-plan"
-   viewBox="0 0 375 1110"
-   width="375"
-   height="1110"
-   style="font-family: Arial, sans-serif;"
-   version="1.1"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   >
-  <defs
-     id="defs54-dev" />
-  <!-- ============================================================
-       RIVER — full width, behind all river objects, to retaining wall
-       ============================================================ -->
-  <rect
-     id="kampot-river-dev"
-     x="0"
-     y="0"
-     width="375"
-     height="131"
-     fill="#4fc3f7" />
-  <text
-     x="40"
-     y="20"
-     text-anchor="start"
-     font-size="11"
-     font-weight="bold"
-     fill="#01579b"
-     id="text1-dev">Kampot River</text>
-  <!-- ============================================================
-       BLOCK BOUNDARY (land fill — sits below retaining wall)
-       ============================================================ -->
-  <rect
-     id="block-boundary-dev"
-     x="0"
-     y="133"
-     width="375"
-     height="974"
-     fill="#e8f5e9"
-     stroke="#5d4037"
-     stroke-width="3" />
-  <!-- ============================================================
-       PONTOON (rect7): x=165.38, y=79.77, w=37.24, h=34.01
-       Floats in river above deck
-       ============================================================ -->
-  <rect
-     id="pontoon-dev"
-     x="165.38"
-     y="79.77"
-     width="37.24"
-     height="34.01"
-     fill="#263238"
-     stroke="#546e7a"
-     stroke-width="1.5"
-     stroke-dasharray="4,2" />
-  <text
-     x="183.99"
-     y="98"
-     text-anchor="middle"
-     font-size="6.5"
-     fill="white"
-     id="text2-dev">Pontoon</text>
-  <text
-     x="183.99"
-     y="108"
-     text-anchor="middle"
-     font-size="6"
-     fill="#90a4ae"
-     id="text3-dev">2.5×2.5m</text>
-  <!-- ============================================================
-       DECK — L-shaped brown path
-       Main body (rect5): x=74.46, y=88.13, w=88.50, h=44.25
-         → right edge = 162.96, bottom = 132.38
-       Right arm (rect6): x=196.78, y=115.84, w=32.38, h=16.54
-         → right edge = 229.16, bottom = 132.38
-       L-path: main body left+top+partial-right, then step across to right arm,
-               right arm top+right+bottom, back across full bottom
-       ============================================================ -->
-  <path
-     id="deck-dev"
-     d="M 74.46,88.13            L 162.96,88.13            L 162.96,115.84            L 196.78,115.84            L 196.78,115.84            L 229.16,115.84            L 229.16,132.38            L 74.46,132.38            Z"
-     fill="#8d6e63"
-     stroke="#4e342e"
-     stroke-width="1.5" />
-  <text
-     x="115"
-     y="115"
-     text-anchor="middle"
-     font-size="8"
-     fill="white"
-     id="text4-dev">Deck  8×2.5m</text>
-  <!-- ============================================================
-       STEPS — 6 grey stripes, 1m wide (15px)
-       Gate right edge: x=170.16+19.43 = 189.59
-       Steps aligned to gate right edge: x=189.59, w=15px
-       y=115.64, h=16.95 (same as Inkscape rect4)
-       Each step = 16.95/6 = 2.825px tall
-       ============================================================ -->
-  <text
-     x="197.09"
-     y="144"
-     text-anchor="middle"
-     font-size="6"
-     fill="#37474f"
-     id="text9-dev">steps</text>
-  <!-- ============================================================
-       RETAINING WALL (with 1m gate centred between wall sections)
-       Left:  x=1.08,   y=131.30, w=166.56, h=4.32
-       Gate:  x=170.16, y=129.86, w=19.43,  h=6.83  (yellow)
-       Right: x=192.19, y=131.35, w=182.34, h=4.27
-       ============================================================ -->
-  <rect
-     id="retaining-wall-left-dev"
-     x="1.08"
-     y="131.30"
-     width="166.56"
-     height="4.32"
-     fill="#6c5353"
-     stroke="#000000"
-     stroke-width="0.5" />
-  <rect
-     id="retaining-wall-gate-dev"
-     x="170.16"
-     y="129.86"
-     width="19.43"
-     height="6.83"
-     fill="#ffd54f"
-     stroke="#f57f17"
-     stroke-width="1" />
-  <text
-     x="179.87"
-     y="135"
-     text-anchor="middle"
-     font-size="5"
-     fill="#5d4037"
-     id="text10-dev">Gate 1m</text>
-  <rect
-     id="retaining-wall-right-dev"
-     x="192.19"
-     y="131.35"
-     width="182.34"
-     height="4.27"
-     fill="#6c5353"
-     stroke="#000000"
-     stroke-width="0.5" />
-  <!-- ============================================================
-       PAVED AREA: x=1.32, y=133.34, w=375.09, h=40.54
-       ============================================================ -->
-  <rect
-     id="paved-area-dev"
-     x="1.32"
-     y="133.34"
-     width="373.68"
-     height="40.54"
-     fill="#cfd8dc"
-     stroke="#90a4ae"
-     stroke-width="1" />
-  <text
-     x="187.5"
-     y="158"
-     text-anchor="middle"
-     font-size="10"
-     fill="#37474f"
-     id="text11-dev">Coconut Garden — 25m × 2.5m</text>
-  <!-- ============================================================
-       HOUSE-CONTAINER
-       Transform translate(-5.7557817, 129.50509) dissolved into coords.
-       ============================================================ -->
-  <g
-     id="house-container-dev">
-    <!-- Main house L-shaped path -->
-    <path
-       id="main-house-dev"
-       d="M 25.46,175.72              L 25.46,445.72              L 144.83,445.72              L 144.83,298.41              L 190.46,298.41              L 190.46,175.72              Z"
-       fill="#b3b3b3"
-       stroke="#000000"
-       stroke-width="2.5" />
-    <!-- bedroom-4: x=25.28, y=175.14, w=66.74, h=39.72 -->
-    <rect
-       id="bedroom-4-dev"
-       x="25.28"
-       y="175.14"
-       width="66.74"
-       height="39.72"
-       fill="#00ff00"
-       stroke="#000000"
-       stroke-width="1.3" />
-    <text
-       x="58.65"
-       y="191"
-       text-anchor="middle"
-       font-size="8"
-       fill="#1b5e20"
-       id="text12-dev">Bed 4</text>
-    <text
-       x="58.65"
-       y="201"
-       text-anchor="middle"
-       font-size="7"
-       fill="#1b5e20"
-       id="text13-dev">4.2×2.5m</text>
-    <!-- bedroom-1: x=24.83, y=212.60, w=58.82, h=58.82 -->
-    <rect
-       id="bedroom-1-dev"
-       x="24.83"
-       y="212.60"
-       width="58.82"
-       height="58.82"
-       fill="#00ff00"
-       stroke="#000000"
-       stroke-width="1.2" />
-    <text
-       x="54.24"
-       y="239"
-       text-anchor="middle"
-       font-size="8"
-       fill="#1b5e20"
-       id="text14-dev">Bed 1</text>
-    <text
-       x="54.24"
-       y="250"
-       text-anchor="middle"
-       font-size="7"
-       fill="#1b5e20"
-       id="text15-dev">4×4m</text>
-    <!-- bedroom-2: x=84.83, y=212.60, w=58.82, h=58.82 -->
-    <rect
-       id="bedroom-2-dev"
-       x="84.83"
-       y="212.60"
-       width="58.82"
-       height="58.82"
-       fill="#00ff00"
-       stroke="#000000"
-       stroke-width="1.2" />
-    <text
-       x="114.24"
-       y="239"
-       text-anchor="middle"
-       font-size="8"
-       fill="#1b5e20"
-       id="text16-dev">Bed 2</text>
-    <text
-       x="114.24"
-       y="250"
-       text-anchor="middle"
-       font-size="7"
-       fill="#1b5e20"
-       id="text17-dev">4×4m</text>
-    <!-- FRONT ENTRANCE (E-W corridor):
-         Between Bed2 bottom (y=271.42) and Bed3 top (y=298.00)
-         Starts 6m from house left wall: house left=25.46, 6m=90px → x=115.46
-         Runs to house right wall: x=190.46
-         Width = 190.46 - 115.46 = 75px (5m)
-         Height = 298.00 - 271.42 = 26.58px (gap between beds)
-         Drawn as open corridor (white fill, dashed border) -->
-    <rect
-       id="entrance-front-dev"
-       x="114.87067"
-       y="270.83069"
-       width="3.2961388"
-       height="27.758644"
-       fill="#ffffff"
-       stroke="#795548"
-       stroke-width="0.321355"
-       stroke-dasharray="5, 3" />
-    <!-- bedroom-3: x=85.09, y=298.00, w=60, h=60 -->
-    <rect
-       id="bedroom-3-dev"
-       x="85.09"
-       y="298.00"
-       width="60"
-       height="60"
-       fill="#00ff00"
-       stroke="#000000"
-       stroke-width="1.2" />
-    <text
-       x="115.09"
-       y="326"
-       text-anchor="middle"
-       font-size="8"
-       fill="#1b5e20"
-       id="text19-dev">Bed 3</text>
-    <text
-       x="115.09"
-       y="337"
-       text-anchor="middle"
-       font-size="7"
-       fill="#1b5e20"
-       id="text20-dev">4×4m</text>
-    <!-- bathroom-1: x=25.78, y=358.95, w=39.17, h=28.49 -->
-    <rect
-       id="bathroom-1-dev"
-       x="25.78"
-       y="358.95"
-       width="39.17"
-       height="28.49"
-       fill="#ff00ff"
-       stroke="#000000"
-       stroke-width="1.2" />
-    <text
-       x="45.37"
-       y="375"
-       text-anchor="middle"
-       font-size="7"
-       fill="white"
-       id="text21-dev">Bath 1</text>
-    <text
-       x="45.37"
-       y="384"
-       text-anchor="middle"
-       font-size="6"
-       fill="white"
-       id="text22-dev">2.5×1.8m</text>
-    <!-- bathroom-2: x=25.86, y=387.60, w=39.17, h=28.49 -->
-    <rect
-       id="bathroom-2-dev"
-       x="25.86"
-       y="387.60"
-       width="39.17"
-       height="28.49"
-       fill="#ff00ff"
-       stroke="#000000"
-       stroke-width="1.2" />
-    <text
-       x="45.37"
-       y="403"
-       text-anchor="middle"
-       font-size="7"
-       fill="white"
-       id="text23-dev">Bath 2</text>
-    <text
-       x="45.37"
-       y="412"
-       text-anchor="middle"
-       font-size="6"
-       fill="white"
-       id="text24-dev">2.5×1.8m</text>
-    <!-- REAR ENTRANCE (N-S corridor):
-         From Bath-2 bottom-right corner: x=25.86+39.17=65.03, y=387.60+28.49=416.09
-         To store-room left edge: x=84.47
-         Runs N-S: x=65.03 to 84.47 (w=19.44), from y=358.95 (Bath-1 top) to y=445.72 (house bottom)
-         Represents the corridor strip between bathrooms and store-room -->
-    <rect
-       id="entrance-rear-dev"
-       x="82.269241"
-       y="414.93646"
-       width="19.551683"
-       height="2.0786102"
-       fill="#ffffff"
-       stroke="#795548"
-       stroke-width="0.232828"
-       stroke-dasharray="5, 3"
-       transform="matrix(0.9999928,0.00379368,-0.04000623,0.99919943,0,0)" />
-    <!-- Laundry: below Bathroom-2, bottom-left of main-house
-         Bath-2 bottom: y=387.60+28.49=416.09
-         House bottom: y=445.72 → h=29.63px (~2m)
-         Same x and width as bathrooms: x=25.78, w=39.17 -->
-    <rect
-       id="laundry-dev"
-       x="25.78"
-       y="416.09"
-       width="39.17"
-       height="29.63"
-       fill="#80deea"
-       stroke="#000000"
-       stroke-width="1.2" />
-    <text
-       x="45.37"
-       y="430"
-       text-anchor="middle"
-       font-size="7"
-       fill="#006064"
-       id="text-laundry1-dev">Laundry</text>
-    <text
-       x="45.37"
-       y="440"
-       text-anchor="middle"
-       font-size="6"
-       fill="#006064"
-       id="text-laundry2-dev">2.5×2m</text>
-
-    <!-- store-room: x=84.47, y=357.60, w=59.76, h=87.10 -->
-    <rect
-       id="store-room-dev"
-       x="84.47"
-       y="357.60"
-       width="59.76"
-       height="87.10"
-       fill="#b3b3b3"
-       stroke="#000000"
-       stroke-width="1.4" />
-    <text
-       x="114.35"
-       y="398"
-       text-anchor="middle"
-       font-size="8"
-       fill="#424242"
-       id="text26-dev">Store</text>
-    <text
-       x="114.35"
-       y="409"
-       text-anchor="middle"
-       font-size="7"
-       fill="#424242"
-       id="text27-dev">4×6m</text>
-  </g>
-  <!-- end house-container -->
-  <!-- ============================================================
-       BUNGALOWS
-       ============================================================ -->
-  <rect
-     id="bungalow-3-dev"
-     x="256.74"
-     y="174.51"
-     width="90"
-     height="60"
-     fill="#ccff00"
-     stroke="#000000"
-     stroke-width="2" />
-  <text
-     x="301.74"
-     y="207"
-     text-anchor="middle"
-     font-size="9"
-     fill="#33691e"
-     id="text28-dev">Bungalow 3</text>
-  <text
-     x="301.74"
-     y="219"
-     text-anchor="middle"
-     font-size="7"
-     fill="#33691e"
-     id="text29-dev">6×4m</text>
-  <rect
-     id="bungalow-1-dev"
-     x="291.24"
-     y="309.51"
-     width="60"
-     height="75"
-     fill="#ccff00"
-     stroke="#000000"
-     stroke-width="2" />
-  <text
-     x="321.24"
-     y="347"
-     text-anchor="middle"
-     font-size="9"
-     fill="#33691e"
-     id="text30-dev">Bungalow 1</text>
-  <text
-     x="321.24"
-     y="359"
-     text-anchor="middle"
-     font-size="7"
-     fill="#33691e"
-     id="text31-dev">5×4m</text>
-  <rect
-     id="bungalow-2-dev"
-     x="291.24"
-     y="429.51"
-     width="60"
-     height="97.5"
-     fill="#ccff00"
-     stroke="#000000"
-     stroke-width="2" />
-  <text
-     x="321.24"
-     y="478"
-     text-anchor="middle"
-     font-size="9"
-     fill="#33691e"
-     id="text32-dev">Bungalow 2</text>
-  <text
-     x="321.24"
-     y="490"
-     text-anchor="middle"
-     font-size="7"
-     fill="#33691e"
-     id="text33-dev">6.5×4m</text>
-  <!-- ============================================================
-       WATER TANK: cx=29.28, cy=461.55, r=15
-       ============================================================ -->
-  <circle
-     id="water-tank1-dev"
-     cx="29.28"
-     cy="461.55"
-     r="15"
-     fill="#808080"
-     stroke="#000000"
-     stroke-width="2" />
-  <text
-     x="29.28"
-     y="464"
-     text-anchor="middle"
-     font-size="6.5"
-     fill="white"
-     id="text34-dev">Tank</text>
-  <!-- ============================================================
-       PARKING / WORKSHOP BLOCK
-       ============================================================ -->
-  <rect
-     id="parking-moto-dev"
-     x="24.24"
-     y="504.51"
-     width="60"
-     height="90"
-     fill="#00ffff"
-     stroke="#000000"
-     stroke-width="2" />
-  <text
-     x="54.24"
-     y="546"
-     text-anchor="middle"
-     font-size="8"
-     fill="#006064"
-     id="text35-dev">Parking</text>
-  <text
-     x="54.24"
-     y="557"
-     text-anchor="middle"
-     font-size="7"
-     fill="#006064"
-     id="text36-dev">Moto</text>
-  <rect
-     id="workshop-dev"
-     x="24.24"
-     y="594.51"
-     width="60"
-     height="90"
-     fill="#d35f5f"
-     stroke="#000000"
-     stroke-width="2" />
-  <text
-     x="54.24"
-     y="636"
-     text-anchor="middle"
-     font-size="8"
-     fill="white"
-     id="text37-dev">Workshop</text>
-  <text
-     x="54.24"
-     y="647"
-     text-anchor="middle"
-     font-size="7"
-     fill="white"
-     id="text38-dev">6×4m</text>
-  <rect
-     id="parking-vehicle-dev"
-     x="24.24"
-     y="684.51"
-     width="60"
-     height="90"
-     fill="#008080"
-     stroke="#000000"
-     stroke-width="2" />
-  <text
-     x="54.24"
-     y="726"
-     text-anchor="middle"
-     font-size="8"
-     fill="white"
-     id="text39-dev">Parking</text>
-  <text
-     x="54.24"
-     y="737"
-     text-anchor="middle"
-     font-size="7"
-     fill="white"
-     id="text40-dev">Vehicle</text>
-  <!-- ============================================================
-       BOTTOM BOUNDARY — Fence and Gate (4m = 60px, centred)
-       ============================================================ -->
-  <!-- BB fence: gate at x=32.36, w=60 → gate right edge = 92.36
-       fence-left: x=1.48 to x=32.36 (w=30.88)
-       fence-right: x=92.36 to x=373.5 (w=281.14) -->
-  <rect
-     id="fence-left-dev"
-     x="1.4847711"
-     y="1102.6969"
-     width="30.872372"
-     height="4"
-     fill="#5d4037" />
-  <rect
-     id="gate-bottom-dev"
-     x="32.357143"
-     y="1102.4286"
-     width="60"
-     height="8"
-     fill="#ffd54f"
-     stroke="#f57f17"
-     stroke-width="1.5" />
-  <text
-     x="62.357143"
-     y="1108.1428"
-     text-anchor="middle"
-     font-size="7px"
-     fill="#e65100"
-     id="text41-dev">Gate 4m</text>
-  <rect
-     id="fence-right-dev"
-     x="92.357143"
-     y="1102.6969"
-     width="281.14"
-     height="4"
-     fill="#5d4037" />
-  <text
-     x="187.5"
-     y="1121.7142"
-     text-anchor="middle"
-     font-size="8px"
-     fill="#546e7a"
-     id="text42-dev">— Access Road —</text>
-  <!-- ============================================================
-       COMPASS
-       ============================================================ -->
-  <!-- Compass: centred at (345, 102)
-       N points RIGHT (right boundary = North)
-       Arrow drawn horizontally: from centre pointing right
-       All text positioned absolutely, no rotation needed -->
-  <g id="compass-dev">
-    <circle cx="345" cy="102" r="18"
-            fill="#ffffff" fill-opacity="0.9"
-            stroke="#90a4ae" stroke-width="1"
-            id="circle42-dev"/>
-    <!-- N label on right -->
-    <text x="358" y="106" text-anchor="middle"
-          font-size="9px" font-weight="bold"
-          fill="#c62828" id="text43-dev">N</text>
-    <!-- S label on left -->
-    <text x="332" y="106" text-anchor="middle"
-          font-size="7px" fill="#546e7a" id="text44-dev">S</text>
-    <!-- W label on top (top boundary = West) -->
-    <text x="345" y="90" text-anchor="middle"
-          font-size="7px" fill="#546e7a" id="text45-dev">W</text>
-    <!-- E label on bottom -->
-    <text x="345" y="120" text-anchor="middle"
-          font-size="7px" fill="#546e7a" id="text46-dev">E</text>
-    <!-- Arrow pointing right toward N -->
-    <line x1="345" y1="102" x2="355" y2="102"
-          stroke="#c62828" stroke-width="2"
-          id="line46-dev"/>
-  </g>
-  <!-- ============================================================
-       LEGEND
-       ============================================================ -->
-  <rect
-     style="fill:#c83737;stroke:#000000;stroke-width:0.42550417"
-     id="step1-dev"
-     width="6.0542998"
-     height="14.521198"
-     x="190.68565"
-     y="116.49303" />
-  <rect
-     style="font-family:Arial, sans-serif;fill:#c83737;stroke:#000000;stroke-width:0.42550417"
-     id="step2-dev"
-     width="6.0542998"
-     height="14.521198"
-     x="197.09767"
-     y="116.52625" />
-  <rect
-     style="font-family:Arial, sans-serif;fill:#c83737;stroke:#000000;stroke-width:0.425504"
-     id="step3-dev"
-     width="6.0542998"
-     height="14.521198"
-     x="203.3199"
-     y="116.42704" />
-  <rect
-     style="font-family:Arial, sans-serif;fill:#c83737;stroke:#000000;stroke-width:0.425504"
-     id="step4-dev"
-     width="6.0542998"
-     height="14.521198"
-     x="209.73192"
-     y="116.46027" />
-  <rect
-     style="font-family:Arial, sans-serif;fill:#c83737;stroke:#000000;stroke-width:0.425504"
-     id="step5-dev"
-     width="6.0542998"
-     height="14.521198"
-     x="216.28418"
-     y="116.4449" />
-  <rect
-     style="font-family:Arial, sans-serif;fill:#c83737;stroke:#000000;stroke-width:0.425504"
-     id="step6-dev"
-     width="6.0542998"
-     height="14.521198"
-     x="222.74977"
-     y="116.58527" />
-
-  <!-- ============================================================
-       PROPOSED NEW DEVELOPMENT AREA (draft — see BlockPlanDrawing.md)
-       Rectangle derived from Robert's BlockPlanDevelopMent.svg guide:
-       x=221.14, y=603.43, w=132, h=469.71 (px) = 8.8m x 31.3m = ~276 sqm
-       ============================================================ -->
-  <g id="proposed-development">
-    <rect
-       id="proposed-development-area"
-       x="221.14285"
-       y="603.42859"
-       width="132"
-       height="469.71429"
-       fill="#fff8e1"
-       fill-opacity="0.55"
-       stroke="#c62828"
-       stroke-width="2"
-       stroke-dasharray="8,5" />
-    <text
-       data-i18n="development.rectLabel1"
-       x="287.14285"
-       y="822"
-       text-anchor="middle"
-       font-size="9"
-       font-weight="bold"
-       fill="#b71c1c"
-       id="text-dev-label1">Proposed new</text>
-    <text
-       data-i18n="development.rectLabel2"
-       x="287.14285"
-       y="834"
-       text-anchor="middle"
-       font-size="9"
-       font-weight="bold"
-       fill="#b71c1c"
-       id="text-dev-label2">development area</text>
-    <text
-       x="287.14285"
-       y="855"
-       text-anchor="middle"
-       font-size="10"
-       font-weight="bold"
-       fill="#b71c1c"
-       id="text-dev-area">&#8776; 276 m&#178;</text>
-  </g>
-
-</svg>
-        <p data-i18n="development.tapHint" class="text-xs text-stone-500 mt-3 text-center">
+      <div class="kp-plan-frame w-full max-w-4xl bg-white rounded-2xl border border-coconut p-4 sm:p-6 shadow-sm">
+        <!-- ===== DEVELOPMENT PLAN SVG — built at runtime from #block-plan by
+             js/app.js (buildDevelopmentPlan), so room/feature geometry only
+             needs updating in one place (see BlockPlanDrawing.md). The
+             legend is dropped and the proposed-development-area overlay is
+             appended by that same function. ===== -->
+        <div id="development-plan-container" class="w-full flex justify-center"></div>
+        <p data-i18n="development.tapHint" class="text-xs text-charcoal/60 mt-3 text-center">
           North points right — the top boundary faces West, directly onto the river.
         </p>
       </div>
@@ -1811,12 +1175,50 @@
 <!-- ======================================================================
      GOODS FOR SALE (placeholder section — content to follow)
      ====================================================================== -->
-<section id="goods" class="py-16 sm:py-24 border-b border-stone-200">
+<section id="goods" class="py-16 sm:py-24 border-b border-river/10 bg-coconut">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <h2 data-i18n="goods.heading" class="text-3xl sm:text-4xl font-bold tracking-tight text-stone-900">Goods for Sale</h2>
-    <p data-i18n="goods.body" class="mt-4 text-stone-600 max-w-2xl">
-      Guitars, instruments, effects pedals, and woodworking &amp; metalworking
-      tools — listings coming soon.
+    <h2 data-i18n="goods.heading" class="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-river">Goods for Sale</h2>
+    <p data-i18n="goods.body" class="mt-4 text-charcoal/75 max-w-2xl">
+      A small selection of personal gear, listed here as it's ready to sell.
+    </p>
+
+    <!-- Categories, not real listings yet — muted/outlined cards so this
+         reads as "not populated yet" rather than "unfinished build" (see
+         kampotpathways-design-brief.md). Swap each for a real listing
+         grid once Robert has items ready to post. -->
+    <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+      <div class="flex flex-col items-center text-center gap-3 rounded-2xl border border-dashed border-river/25 bg-mist/60 px-4 py-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-river/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
+        </svg>
+        <span data-i18n="goods.cat.guitars" class="text-sm font-medium text-charcoal/70">Guitars &amp; Instruments</span>
+      </div>
+      <div class="flex flex-col items-center text-center gap-3 rounded-2xl border border-dashed border-river/25 bg-mist/60 px-4 py-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-river/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+        </svg>
+        <span data-i18n="goods.cat.pedals" class="text-sm font-medium text-charcoal/70">Effects Pedals</span>
+      </div>
+      <div class="flex flex-col items-center text-center gap-3 rounded-2xl border border-dashed border-river/25 bg-mist/60 px-4 py-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-river/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+        </svg>
+        <span data-i18n="goods.cat.woodworking" class="text-sm font-medium text-charcoal/70">Woodworking Tools</span>
+      </div>
+      <div class="flex flex-col items-center text-center gap-3 rounded-2xl border border-dashed border-river/25 bg-mist/60 px-4 py-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-river/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.28z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span data-i18n="goods.cat.metalworking" class="text-sm font-medium text-charcoal/70">Metalworking Tools</span>
+      </div>
+    </div>
+
+    <p class="mt-8 inline-flex items-center gap-1.5 text-xs font-medium text-laterite-700 bg-laterite-50 px-3 py-1.5 rounded-full">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span data-i18n="goods.comingSoon">Listings coming soon</span>
     </p>
   </div>
 </section>
@@ -1824,45 +1226,141 @@
 <!-- ======================================================================
      IT SERVICES (placeholder section — content to follow)
      ====================================================================== -->
-<section id="services" class="py-16 sm:py-24 border-b border-stone-200 bg-white">
+<section id="services" class="py-16 sm:py-24 border-b border-river/10">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <h2 data-i18n="services.heading" class="text-3xl sm:text-4xl font-bold tracking-tight text-stone-900">IT Development Services</h2>
-    <p data-i18n="services.body" class="mt-4 text-stone-600 max-w-2xl">
+    <h2 data-i18n="services.heading" class="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-river">IT Development Services</h2>
+    <p data-i18n="services.body" class="mt-4 text-charcoal/75 max-w-2xl">
       This site itself is a working example of Claude-collaborative web
-      development — full details on remote development services coming soon.
+      development — full details on remote development services coming
+      soon. If you need a website like this, contact Robert — see below.
     </p>
   </div>
 </section>
 
 <!-- ======================================================================
-     CONTACT (placeholder — Formspree wiring is a later step)
+     RETIREMENT VISA (real content, added 8 Sept 2026 at Robert's request —
+     sits between IT Services and Contact)
      ====================================================================== -->
-<section id="contact" class="py-16 sm:py-24">
+<section id="retirement" class="py-16 sm:py-24 border-b border-river/10 bg-coconut">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <h2 data-i18n="contact.heading" class="text-3xl sm:text-4xl font-bold tracking-tight text-stone-900">Contact</h2>
-
-    <div class="mt-8 grid sm:grid-cols-2 gap-8 max-w-2xl">
-      <div>
-        <h3 data-i18n="contact.primaryHeading" class="font-semibold text-stone-900 mb-3">Primary Contacts</h3>
-        <ul id="kp-primary-contacts" class="space-y-2 text-stone-700">
-          <!-- populated by js/app.js from primaryContacts (js/contact-data.js) -->
-        </ul>
-      </div>
-
-      <div id="kp-sales-contact" hidden>
-        <h3 data-i18n="contact.salesHeading" class="font-semibold text-stone-900 mb-3">Sales Contact</h3>
-        <div id="kp-sales-contact-body" class="text-stone-700 space-y-1"></div>
-      </div>
-    </div>
-
-    <p data-i18n="contact.formComingSoon" class="mt-8 text-stone-600 max-w-2xl">
-      Contact form coming soon.
+    <h2 data-i18n="retirement.heading" class="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-river">Want to retire to Cambodia?</h2>
+    <p data-i18n="retirement.body" class="mt-4 text-charcoal/75 max-w-2xl">
+      Retire to Cambodia — so easy, with no fuss. A 12-month, multiple-entry
+      Retirement Visa costs $300 p.a. and is typically processed in around
+      10 days.
     </p>
   </div>
 </section>
 
-<footer class="border-t border-stone-200 py-8">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 text-sm text-stone-500 flex flex-col sm:flex-row justify-between gap-2">
+<!-- ======================================================================
+     CONTACT (Formspree endpoint wired: /f/xgaebjwg, added 2026-09-14)
+     ====================================================================== -->
+<section id="contact" class="py-16 sm:py-24">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <h2 data-i18n="contact.heading" class="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-river">Contact</h2>
+
+    <!-- ==================================================================
+         CONTACT + ENQUIRY (layout per Mockup_Contacts.png, 2026-09-12):
+         ONE grid row, lg:grid-cols-5:
+         left  (2/5) = Primary Contacts (heading + side-by-side name/phone
+         table rendered by js/app.js from js/contact-data.js + email) with
+         the "What to expect" card directly below it (card fills the
+         remaining height so its bottom edge aligns with the form's);
+         right (3/5) = Formspree enquiry form, full column height — top
+         edge aligned with the contacts table, bottom edge aligned with
+         the card. The submit guard (js/app.js, initContactForm) blocks
+         the dead-end POST until a real endpoint ID is set on the form. -->
+    <div class="mt-8 grid gap-6 lg:grid-cols-5 items-stretch">
+      <!-- Left column: Primary Contacts table, then "What to expect" card -->
+      <div class="lg:col-span-2 flex flex-col">
+        <h3 data-i18n="contact.primaryHeading" class="font-serif font-semibold text-river mb-3">Primary Contacts</h3>
+        <div id="kp-primary-contacts" class="text-charcoal/85">
+          <!-- populated by js/app.js from primaryContacts (js/contact-data.js) -->
+        </div>
+
+        <div id="kp-sales-contact" hidden>
+          <h3 data-i18n="contact.salesHeading" class="mt-6 mb-3 font-serif font-semibold text-river">Sales Contact</h3>
+          <div id="kp-sales-contact-body" class="space-y-1 text-charcoal/85"></div>
+        </div>
+
+        <div class="mt-8 bg-white border border-river/10 rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col lg:flex-1 lg:min-h-0">
+          <h3 data-i18n="contact.expectHeading" class="font-serif text-xl font-semibold text-river">What to expect</h3>
+        <ul class="mt-5 space-y-4">
+          <li>
+            <p data-i18n="contact.expectOwner" class="font-semibold text-charcoal">Owner-direct sale</p>
+            <p data-i18n="contact.expectOwnerSub" class="text-sm text-charcoal/65">No commission, no middle layer.</p>
+          </li>
+          <li>
+            <p data-i18n="contact.expectLocation" class="font-semibold text-charcoal">Kampot, Cambodia</p>
+            <p data-i18n="contact.expectLocationSub" class="text-sm text-charcoal/65">On the Kampot River.</p>
+          </li>
+          <li>
+            <p data-i18n="contact.expectViewings" class="font-semibold text-charcoal">Private viewings</p>
+            <p data-i18n="contact.expectViewingsSub" class="text-sm text-charcoal/65">Arranged on request, with time to see the block properly.</p>
+          </li>
+        </ul>
+        <p data-i18n="contact.legalNote" class="font-serif italic text-sm text-charcoal/60 mt-8 lg:mt-auto lg:pt-8">The owner holds Hard Title. Diagrams are approximate guidance only.</p>
+        </div>
+      </div>
+
+      <form
+        id="contact-form"
+        class="lg:col-span-3 flex flex-col bg-white border border-river/10 rounded-2xl p-6 sm:p-8 shadow-sm"
+        action="https://formspree.io/f/xgaebjwg"
+        method="POST"
+      >
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="block">
+            <span data-i18n="contact.formName" class="text-sm font-semibold text-charcoal">Name</span>
+            <input
+              type="text" name="name" required autocomplete="name"
+              class="mt-2 w-full rounded-xl px-4 py-3 text-[15px] bg-mist border border-river/20 text-charcoal outline-none transition-colors focus:border-river-500"
+            >
+          </label>
+          <label class="block">
+            <span data-i18n="contact.formEmail" class="text-sm font-semibold text-charcoal">Email</span>
+            <input
+              type="email" name="email" required autocomplete="email"
+              class="mt-2 w-full rounded-xl px-4 py-3 text-[15px] bg-mist border border-river/20 text-charcoal outline-none transition-colors focus:border-river-500"
+            >
+          </label>
+          <label class="block sm:col-span-2">
+            <span class="text-sm font-semibold text-charcoal">
+              <span data-i18n="contact.formPhone">Phone</span>
+              <span data-i18n="contact.formPhoneOptional" class="text-charcoal/55 font-normal">(optional)</span>
+            </span>
+            <input
+              type="tel" name="phone" autocomplete="tel"
+              class="mt-2 w-full rounded-xl px-4 py-3 text-[15px] bg-mist border border-river/20 text-charcoal outline-none transition-colors focus:border-river-500"
+            >
+          </label>
+          <label class="block sm:col-span-2">
+            <span data-i18n="contact.formMessage" class="text-sm font-semibold text-charcoal">Message</span>
+            <textarea
+              name="message" rows="5" required
+              data-i18n-placeholder="contact.formMessagePlaceholder"
+              placeholder="I'd like to enquire about the Kampot riverfront property&hellip;"
+              class="mt-2 w-full resize-y rounded-xl px-4 py-3 text-[15px] bg-mist border border-river/20 text-charcoal outline-none transition-colors focus:border-river-500"
+            ></textarea>
+          </label>
+        </div>
+        <button
+          type="submit"
+          class="mt-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-laterite-600 hover:bg-laterite-700 text-white font-medium transition-colors"
+        >
+          <span data-i18n="contact.formSubmit">Send enquiry</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </button>
+        <p data-i18n="contact.formTrust" class="mt-4 text-center text-xs text-charcoal/55">Your details go directly to the owner. Nothing is shared with third parties.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-river/10 py-8">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 text-sm text-charcoal/60 flex flex-col sm:flex-row justify-between gap-2">
     <p data-i18n="footer.copyright">&copy; 2026 Kampot Pathways.</p>
     <p data-i18n="footer.tagline">Built with HTML5, Tailwind CSS &amp; vanilla JavaScript — a Claude-collaborative development portfolio piece.</p>
   </div>
@@ -1878,23 +1376,23 @@
 >
   <div
     id="kp-modal-panel"
-    class="bg-white rounded-2xl max-w-[40rem] w-full max-h-[90vh] overflow-y-auto shadow-xl"
+    class="bg-white rounded-2xl w-fit min-w-[18rem] max-w-[60rem] max-h-[95vh] overflow-y-auto shadow-xl"
     role="dialog"
     aria-modal="true"
     aria-labelledby="kp-modal-title"
   >
-    <div class="p-5 sm:p-6">
+    <div class="p-3 sm:p-4">
       <div class="flex items-start justify-between gap-4">
         <div>
-          <h3 id="kp-modal-title" class="text-xl font-semibold text-stone-900"></h3>
-          <p id="kp-modal-meta" class="text-sm text-stone-500 mt-0.5"></p>
+          <h3 id="kp-modal-title" class="font-serif text-xl font-semibold text-river"></h3>
+          <p id="kp-modal-meta" class="text-sm text-charcoal/60 mt-0.5"></p>
         </div>
         <button
           id="kp-modal-close"
           type="button"
           aria-label="Close"
           data-i18n-aria-label="modal.close"
-          class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-stone-500 hover:bg-stone-100"
+          class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-charcoal/60 hover:bg-coconut"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -1902,13 +1400,18 @@
         </button>
       </div>
 
-      <img id="kp-modal-main-image" class="w-full mt-4 rounded-lg object-cover max-h-80 hidden" src="" alt="" />
+      <!-- object-contain + a viewport-relative cap (not a fixed px height)
+           so the full photo always shows, never cropped — matches the
+           gallery grid's masonry layout letting photos keep their real
+           shape (Round 10). The modal panel's own max-h-[90vh] above is
+           the outer safety net for anything still too tall. -->
+      <img id="kp-modal-main-image" class="mx-auto mt-3 rounded-lg w-auto h-auto max-w-[calc(100vw-4rem)] max-h-[calc(100vh-10rem)] object-contain hidden" src="" alt="" />
 
       <div id="kp-modal-thumbs" class="hidden flex gap-2 mt-3 overflow-x-auto kp-scroll-thin pb-1"></div>
 
       <div id="kp-modal-video-wrap" class="hidden"></div>
 
-      <p id="kp-modal-description" class="mt-4 text-stone-700"></p>
+      <p id="kp-modal-description" class="mt-4 text-charcoal/85"></p>
     </div>
   </div>
 </div>
@@ -1917,5 +1420,6 @@
 <script src="js/contact-data.js"></script>
 <script src="js/i18n-data.js"></script>
 <script src="js/app.js"></script>
+<script src="js/nav-scroll.js"></script>
 </body>
 </html>

@@ -9,6 +9,28 @@
    in the HTML, put it there instead, so the two don't drift out of sync.
    ========================================================================== */
 
+/* --- Design tokens (hero) ---------------------------------------------------
+    Centralised values for the hero treatment, adapted from the design
+    reference (design_reference/test-project-style.css) but mapped onto the
+    site's own river/tide palette — no foreign forest/sand/gold tones. */
+
+:root {
+  /* Scrim as raw channels so rgba() can vary the alpha — river-900 #030807. */
+  --kp-scrim: 3, 8, 7;
+  /* Tint accents from the tide scale (the same two values the language
+     switcher and the thin scrollbar below already use: tide-300 / tide-50). */
+  --kp-accent: #9cc9c2;      /* tide-300 */
+  --kp-accent-soft: #d5e8e5; /* tide-50 */
+  /* Display face for the hero heading. The site loads no web fonts, so
+     Fraunces is used only where the visitor already has it; everyone else
+     gets a native serif fallback and nothing is downloaded. */
+  --kp-font-display: "Fraunces", "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --kp-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Shared motion curve and the hero zoom duration. */
+  --kp-ease: cubic-bezier(.22, 1, .36, 1);
+  --kp-hero-zoom: 18s;
+}
+
 /* --- Block plan SVG ------------------------------------------------------ */
 
 /* The plan is tall and narrow (25m wide x 74m deep block), so it was being
@@ -34,13 +56,16 @@
 #block-plan .kp-clickable:hover,
 #block-plan .kp-clickable:focus-visible,
 #block-plan .kp-clickable.kp-active {
-  filter: brightness(1.2) saturate(1.3);
-  outline: 2px solid #ffffff;
+  filter: brightness(1.15) saturate(1.25);
+  outline: 2px solid #f6f4ef; /* mist — reads as a highlight on every fill colour in the plan */
   outline-offset: 1px;
 }
 
+/* Keyboard focus gets its own colour (laterite, the site's one warm accent)
+   so it's clearly distinguishable from a plain mouse hover, not just the
+   generic browser-blue outline. */
 #block-plan .kp-clickable:focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid #a8552e;
 }
 
 /* Every <text> label sits visually on top of its shape (e.g. "Bed 1" inside
@@ -105,36 +130,131 @@
   height: 6px;
 }
 .kp-scroll-thin::-webkit-scrollbar-thumb {
-  background-color: #cbd5c9;
+  background-color: #9cc9c2; /* tide-300 */
   border-radius: 999px;
 }
 .kp-scroll-thin::-webkit-scrollbar-track {
   background: transparent;
 }
 
-/* --- Hero background image --------------------------------------------------
+/* --- Hero ------------------------------------------------------------------
+   Layered treatment adapted from the design reference: the photo sits on a
+   ::before layer so it can be scaled for the Ken-Burns zoom, a two-layer
+   scrim (bottom veil + side gradient) sits on ::after, and the hero's own
+   markup is lifted above both at z-index 2. All tinting is river-900
+   (#030807) so the overlay ties into the same palette as the rest of the
+   page.
+
    Desktop/tablet uses the original landscape photo. Below 640px (roughly
-   phone-width portrait), CSS `cover` on a landscape source would keep the
-   full height and crop the sides down to a fairly narrow strip — usually
-   fine, but here we swap in a dedicated portrait crop instead
-   (20211127_173710-portrait.jpg, cropped and centred on the brightest part
-   of the sunset by Claude — see BlockPlanDrawing.md for how) so the mobile
+   phone-width portrait) we swap in a dedicated mobile photo instead, so the
    hero is a deliberate composition rather than whatever `cover` happens to
-   keep, and so mobile visitors load a much smaller file. */
+   keep, and mobile visitors load a different (lighter) file. */
 
 /* NOTE: url() in a stylesheet resolves relative to the stylesheet's own
    location (css/), not to index.html — so these need a "../" to reach the
    photos sitting next to index.html in the site root. Missing that prefix
    is why the hero photo wasn't appearing. */
+
 #kp-hero {
-  background-image: linear-gradient(180deg, rgba(20, 30, 22, 0.35), rgba(20, 30, 22, 0.65)), url("../20211127_173710.jpg");
-  background-size: cover;
-  background-position: center;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Everything inside the hero (heading, sub, CTA, …) must sit above the two
+   pseudo-element layers below. The scroll indicator is excluded — it needs
+   its own absolute positioning (see .hero__scroll) rather than being forced
+   into the flex flow, which pushed it off-screen and clipped it. */
+#kp-hero > :not(.hero__scroll) {
+  position: relative;
+  z-index: 2;
+}
+
+/* Photo layer — the Ken-Burns slow zoom happens here. */
+#kp-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("../source_images/20211127_173710.jpg");
+  background-size: cover;
+  background-position: center;
+  animation: kp-hero-zoom var(--kp-hero-zoom) ease-out both;
+  will-change: transform;
+}
+
+/* Slow zoom-in: starts over-scaled and eases down, reading as a gentle
+   push-in rather than a slide. */
+@keyframes kp-hero-zoom {
+  from { transform: scale(1.12); }
+  to   { transform: scale(1.05); }
+}
+
+/* Scrim layer — the bottom veil keeps the copy zone legible and the side
+   gradient anchors the left-aligned hero text, replacing the old single
+   180deg fade. */
+#kp-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(180deg,
+      rgba(var(--kp-scrim), 0.06) 0%,
+      rgba(var(--kp-scrim), 0.08) 48%,
+      rgba(var(--kp-scrim), 0.64) 100%),
+    linear-gradient(90deg,
+      rgba(var(--kp-scrim), 0.60) 0%,
+      rgba(var(--kp-scrim), 0.18) 46%,
+      rgba(var(--kp-scrim), 0) 72%);
+}
+
+/* --- Hero heading -----------------------------------------------------------
+   Serif display face (Fraunces, native fallbacks) with fluid clamp() sizing
+   and tighter tracking than the default sans. */
+
+#kp-hero h1 {
+  font-family: var(--kp-font-display);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 5vw, 3.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+/* --- Hero CTA ---------------------------------------------------------------
+   Pill shape with a hover lift + shadow and a subtle press on :active,
+   matching the reference's .btn treatment in the site's own palette. */
+
+#kp-hero a {
+  border-radius: 999px;
+  transition:
+    transform 0.3s var(--kp-ease),
+    box-shadow 0.3s var(--kp-ease),
+    background-color 0.3s var(--kp-ease),
+    color 0.3s var(--kp-ease),
+    border-color 0.3s var(--kp-ease);
+}
+
+#kp-hero a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -14px rgba(var(--kp-scrim), 0.55);
+}
+
+#kp-hero a:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* Mobile: dedicated hero photo for phone-width portrait screens. */
 @media (max-width: 640px) {
-  #kp-hero {
-    background-image: linear-gradient(180deg, rgba(20, 30, 22, 0.35), rgba(20, 30, 22, 0.65)), url("../20211127_173710-portrait.jpg");
+  #kp-hero::before {
+    background-image: url("../source_images/20211127_173726.jpg");
+  }
+}
+
+/* Visitors who opt out of non-essential animation get a still hero. */
+@media (prefers-reduced-motion: reduce) {
+  #kp-hero::before {
+    animation: none;
+    transform: none;
   }
 }
 
@@ -144,8 +264,8 @@
    the current language. */
 
 .kp-lang-btn.kp-lang-active {
-  background-color: #d1fae5; /* emerald-100 */
-  color: #065f46; /* emerald-800 */
+  background-color: #d5e8e5; /* tide-50 */
+  color: #102d2c; /* river-700 */
 }
 
 /* Belt-and-braces for mobile taps: tells the browser these buttons are
@@ -188,3 +308,317 @@ body.lang-km {
 body.lang-zh {
   font-family: "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
 }
+
+/* ==========================================================================
+   STAGE 2 — rest of the page (global polish, sticky nav, cards, section
+   rhythm, modal, footer). Reuses the Stage 1 :root tokens (--kp-scrim,
+   --kp-accent, --kp-accent-soft, --kp-ease) and the Tailwind palette
+   already in use (river / mist / charcoal / tide / coconut / laterite).
+   The hero (Stage 1) is untouched.
+   ========================================================================== */
+
+/* --- Global: smooth anchor scrolling + scroll offset under fixed nav ---- */
+html {
+  scroll-behavior: smooth;
+}
+
+#top,
+section[id] {
+  /* keeps anchored headings clear of the fixed header when jumping */
+  scroll-margin-top: 4.5rem;
+}
+
+/* --- Global: brand-tinted selection + a clear keyboard focus ring ------- */
+::selection {
+  background: var(--kp-accent-soft);
+  color: #030807; /* river-900 — the --kp-scrim channels can't be a color directly */
+}
+
+:focus-visible {
+  outline: 2px solid var(--kp-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* --- Sticky nav: calm 250ms hover on links (no layout jump) --------------
+   The header is already fixed with a blur; this only tunes the motion
+   timing of its links so hover feels deliberate, not instant. */
+header > div > nav a {
+  transition: color 250ms var(--kp-ease);
+}
+
+header a {
+  text-decoration: none;
+}
+
+/* Language switcher pills — same curve as the rest of the page */
+.kp-lang-btn {
+  transition: color 250ms var(--kp-ease), background-color 250ms var(--kp-ease);
+}
+
+/* Mobile menu links */
+#kp-nav-menu a {
+  transition: color 250ms var(--kp-ease);
+}
+
+/* --- Cards: hover lift + soft shadow --------------------------------------
+   Applied to the Goods category placeholders for now, and to any future
+   .kp-card so real listings inherit the same treatment without extra CSS.
+   (Grid stays 4-up — icon + short label need the width; see summary.) */
+.kp-card,
+#goods .grid > div {
+  transition: transform 250ms var(--kp-ease), box-shadow 250ms var(--kp-ease);
+}
+
+.kp-card:hover,
+#goods .grid > div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -14px rgba(var(--kp-scrim), 0.28);
+}
+
+/* --- Modal / lightbox: 200ms opacity + scale, blurred backdrop -----------
+   #kp-modal-backdrop already transitions opacity (above); give the panel
+   its own matching transition so open/close animates as a pair. */
+#kp-modal-backdrop {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+#kp-modal-panel {
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+#kp-modal-close {
+  transition: color 250ms var(--kp-ease), background-color 250ms var(--kp-ease);
+}
+
+#kp-modal-thumbs button {
+  transition: border-color 250ms var(--kp-ease), transform 250ms var(--kp-ease);
+}
+
+#kp-modal-thumbs button:hover {
+  transform: translateY(-1px);
+}
+
+/* --- Footer: quiet, links get the same 250ms hover ------------------------ */
+footer a {
+  transition: color 250ms var(--kp-ease);
+}
+
+/* --- Respect reduced-motion: neutralise decorative motion ----------------
+   Scoped to the rules we actually added — does NOT blanket-kill the modal
+   fade or the hero zoom (those have their own handling) so we don't
+   accidentally disable a functional transition site-wide. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  header > div > nav a,
+  header a,
+  .kp-lang-btn,
+  #kp-nav-menu a,
+  .kp-card,
+  #goods .grid > div,
+  #kp-modal-panel,
+  #kp-modal-close,
+  #kp-modal-thumbs button,
+  footer a {
+    transition-duration: 0.01ms !important;
+  }
+  .kp-card:hover,
+  #goods .grid > div:hover,
+  #kp-modal-thumbs button:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   APPENDED: scroll indicator + nav scroll states
+   ========================================================================== */
+
+/* --- Scroll indicator (self-contained) --- */
+.hero__scroll {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  color: #e8d5a3;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.hero__scroll .mouse {
+  width: 26px;
+  height: 40px;
+  border: 2px solid #e8d5a3;
+  border-radius: 13px;
+  position: relative;
+}
+.hero__scroll .mouse .wheel {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 8px;
+  background: #e8d5a3;
+  border-radius: 2px;
+  animation: kp-wheel 1.8s ease-in-out infinite;
+}
+@keyframes kp-wheel {
+  0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(12px); }
+}
+@media (max-width: 720px) {
+  .hero__scroll .mouse {
+    width: 22px;
+    height: 34px;
+  }
+}
+
+/* Ken Burns — slow zoom-out on load */
+#kp-hero {
+  overflow: hidden;
+}
+#kp-hero::before {
+  animation: kp-kenburns 18s ease-out forwards;
+  will-change: transform;
+}
+@keyframes kp-kenburns {
+  from { transform: scale(1.18); }
+  to   { transform: scale(1); }
+}
+
+
+/* nav scroll states */
+.site-nav{background:transparent;backdrop-filter:none;transition:background .35s ease,backdrop-filter .35s ease}
+.site-nav a,.site-nav span{color:#fff;transition:color .35s ease}
+.site-nav.scrolled{background:rgba(246,239,226,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,58,55,.14)}
+.site-nav.scrolled a,.site-nav.scrolled span{color:#1b3a37}
+/* Hamburger / nav toggle visibility */
+.site-nav #kp-nav-toggle,
+.site-nav .nav-toggle {
+  color: #fff;
+  stroke: #fff;
+}
+.site-nav.scrolled #kp-nav-toggle,
+.site-nav.scrolled .nav-toggle {
+  color: #1b3a37;
+  stroke: #1b3a37;
+}
+
+
+.brand__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  background: #142820;
+  border-radius: 10px;
+}
+.brand__mark svg {
+  width: 26px;
+  height: 26px;
+}
+.brand__mark svg path {
+  stroke: #e8d5a3;
+}
+
+/* Brand text lines — matched to the real Tailwind-utility classes in index.html
+   (name line uses .font-serif; tagline line uses .opacity-70), scoped to the
+   text container that immediately follows .brand__mark. */
+.site-nav .brand__mark + span .font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  white-space: nowrap;
+}
+.site-nav .brand__mark + span .opacity-70 {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #e8d5a3;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+.site-nav.scrolled .brand__mark + span .font-serif {
+  color: #1a3a2a;
+}
+.site-nav.scrolled .brand__mark + span .opacity-70 {
+  color: #1a3a2a;
+  opacity: 0.7;
+}
+
+/* Language buttons: white on hero, dark when scrolled */
+.site-nav .kp-lang-btn {
+  color: #fff;
+}
+.site-nav .kp-lang-btn.kp-lang-active {
+  color: #fff;
+  background: rgba(255,255,255,.18);
+}
+
+.site-nav.scrolled .kp-lang-btn {
+  color: #1a3a2a;
+}
+.site-nav.scrolled .kp-lang-btn.kp-lang-active {
+  color: #1a3a2a;
+  background: rgba(26,58,42,.12);
+}
+
+.site-nav .kp-lang-btn:hover,
+.site-nav .kp-lang-btn:focus-visible {
+  color: #fff;
+}
+.site-nav.scrolled .kp-lang-btn:hover,
+.site-nav.scrolled .kp-lang-btn:focus-visible {
+  color: #1a3a2a;
+}
+
+/* Desktop nav link spacing — compressed from the Tailwind `gap-8` (2rem) so the
+   7-link row stops crowding the brand text at mid/desktop widths. The header row
+   is justify-between, so the reclaimed space is redistributed as an even gap
+   between brand | nav | language switcher. Targets ONLY the horizontal desktop
+   nav (the <nav> inside the header's max-width row) — the mobile #kp-nav-menu is
+   a direct child of the header and is intentionally unaffected, so mobile stays
+   as-is. Out-specifies Tailwind's .gap-8 via the compound selector. */
+.site-nav > div > nav {
+  gap: 1.25rem; /* was 2rem (gap-8) */
+}
+
+/* Desktop nav links: hover highlight -----------------------------------------
+   Bug: in the transparent (hero) state the links are white, but the Tailwind
+   `hover:text-river` class flipped them near-black on hover — barely legible
+   over the dark hero image. Fix: text STAYS white on hover and a soft
+   semi-transparent rectangle is drawn around it via a hard box-shadow ring
+   (same .18 white as the language-button active pill). Zero layout change at
+   any width — no padding is added, so the already-crowded md row is safe.
+   When scrolled, the text keeps its dark green and the ring becomes a subtle
+   dark tint. Scoped to the desktop row only: the brand link and the mobile
+   #kp-nav-menu are untouched. Out-specifies .hover\:text-river by specificity
+   ((0,2,3) > (0,2,0)). */
+.site-nav > div > nav a {
+  box-shadow: 0 0 0 0 rgba(255,255,255,0);
+  transition: color 250ms var(--kp-ease), box-shadow 250ms var(--kp-ease);
+}
+.site-nav > div > nav a:hover,
+.site-nav > div > nav a:focus-visible {
+  color: #fff;
+  box-shadow: 0 0 0 8px rgba(255,255,255,0.18);
+}
+.site-nav.scrolled > div > nav a:hover,
+.site-nav.scrolled > div > nav a:focus-visible {
+  color: #1b3a37;
+  box-shadow: 0 0 0 8px rgba(27,58,55,0.10);
+}
+
+
+

@@ -14,9 +14,13 @@
    ========================================================================== */
 
 const primaryContacts = [
-  { language: "English", name: "Robert", phone: "010726644" },
-  { language: "Khmer", name: "Koemyi", phone: "093249307" }
+  { language: "English", name: "Robert", phone: "+855 10726644" },
+  { language: "Khmer", name: "Koemyi", phone: "+855 93249307" }
 ];
+
+// General contact email, shown under the two phone numbers above in the
+// Primary Contacts block — not tied to a specific person/language.
+const primaryContactEmail = "robert.systematix+kampotsales@gmail.com";
 
 const salesContact = {
   firstName: "",

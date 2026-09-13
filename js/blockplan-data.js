@@ -20,12 +20,12 @@
    be deleted whenever convenient.
 
    Second update (same day, after feedback on the first index.html draft):
-   - main-house/bungalow-3 photo split corrected (20260903_145551.jpg
+   - main-house/bungalow-3 photo split corrected (source_images/20260903_145551.jpg
      re-tagged from main-house to Bungalow 3 in KP_Photos.xlsx; a second
-     distinct "Side view from North" shot, 20260903_145534.jpg, added to
+     distinct "Side view from North" shot, source_images/20260903_145534.jpg, added to
      main-house)
    - galleryPhotos expanded to include every photo Robert flagged with
-     Notes="x" in KP_Photos.xlsx, plus the new 20260812_132019.jpg
+     Notes="x" in KP_Photos.xlsx, plus the new source_images/20260812_132019.jpg
    - water-tank1 updated to reflect the 5,000 litre capacity and the
      mains-pressure pump system (previously just said "rainwater
      catchment tank")
@@ -34,7 +34,7 @@
 
    Third update (4 Sept 2026): two new rows Robert flagged Notes="x" in
    KP_Photos.xlsx added to galleryPhotos, both Property views —
-   20200419_162947.jpg (Mango trees) and 20260330_074321.jpg (So many
+   source_images/20200419_162947.jpg (Mango trees) and source_images/20260330_074321.jpg (So many
    fresh mangoes). Matching draft km/zh entries added to
    galleryTranslations in i18n-data.js (unreviewed, same as the rest of
    that file).
@@ -60,11 +60,11 @@ const propertyData = {
     region: "River views",
     description: "Absolute riverfront — the block's top boundary is a retaining wall directly on the Kampot River. Tidal, with up to 1.5m of daily sea-water tide.",
     photos: [
-      { file: "20220913_063740.jpg", caption: "River morning reflections" },
-      { file: "20220913_063751.jpg", caption: "River morning reflections" },
-      { file: "20211127_173227.jpg", caption: "Sunset with light rays" },
-      { file: "20211127_173726.jpg", caption: "Sunset with cloud formations" },
-      { file: "20211127_173710.jpg", caption: "Sunset with light rays" }
+      { file: "source_images/20220913_063740.jpg", caption: "River morning reflections" },
+      { file: "source_images/20220913_063751.jpg", caption: "River morning reflections" },
+      { file: "source_images/20211127_173227.jpg", caption: "Sunset with light rays" },
+      { file: "source_images/20211127_173726.jpg", caption: "Sunset with cloud formations" },
+      { file: "source_images/20211127_173710.jpg", caption: "Sunset with light rays" }
     ],
     placeholder: false
   },
@@ -75,10 +75,10 @@ const propertyData = {
     region: "River views",
     description: "Floating pontoon set inside the deck's cutout, used for swimming and as a kayak launch point.",
     photos: [
-      { file: "20240629_173300.jpg", caption: "Swimming from the floating pontoon" },
-      { file: "20260811_085313.jpg", caption: "Kayaking from the pontoon" },
-      { file: "20260811_085527.jpg", caption: "Kayaking across the river" },
-      { file: "20260811_090007.jpg", caption: "Kayaking across the river" }
+      { file: "source_images/20240629_173300.jpg", caption: "Swimming from the floating pontoon" },
+      { file: "source_images/20260811_085313.jpg", caption: "Kayaking from the pontoon" },
+      { file: "source_images/20260811_085527.jpg", caption: "Kayaking across the river" },
+      { file: "source_images/20260811_090007.jpg", caption: "Kayaking across the river" }
     ],
     // videos: temporarily disabled — 76MB raw phone video is too large for free
     // static hosting (self-hosted bandwidth cost / repo size). Re-enable once
@@ -96,8 +96,8 @@ const propertyData = {
     region: "River views",
     description: "Timber deck built out over the river, connected to the paved area by the retaining-wall gate and six steps down to the pontoon.",
     photos: [
-      { file: "20240304_125451.jpg", caption: "River deck lunch" },
-      { file: "20250303_153325.jpg", caption: "River deck and pontoon", note: "Tide rises up to 1.5m daily from the sea" }
+      { file: "source_images/20240304_125451.jpg", caption: "River deck lunch" },
+      { file: "source_images/20250303_153325.jpg", caption: "River deck and pontoon", note: "Tide rises up to 1.5m daily from the sea" }
     ],
     placeholder: false
   },
@@ -152,8 +152,8 @@ const propertyData = {
     region: "Gardens",
     description: "Paved strip running the full width of the block between the house/bungalows and the retaining wall, planted with coconut palms.",
     photos: [
-      { file: "20211207_073451.jpg", caption: "Orchids" },
-      { file: "20211210_183630.jpg", caption: "Coconuts" }
+      { file: "source_images/20211207_073451.jpg", caption: "Orchids" },
+      { file: "source_images/20211210_183630.jpg", caption: "Coconuts" }
     ],
     placeholder: false
   },
@@ -164,13 +164,13 @@ const propertyData = {
 
   "main-house": {
     label: "Main House",
-    dimensions: "11m × 18m (198 m²)",
+    dimensions: "11m × 18m, L-shaped (≈168 m²)",
     region: "House plan",
     description: "L-shaped main house: 4 bedrooms, 2 bathrooms, kitchen/dining, storage area, laundry, and a verandah, with front (river-side) and rear entrances.",
     photos: [
-      { file: "20260903_145609.jpg", caption: "Front entrance" },
-      { file: "20260903_145537.jpg", caption: "Side view from North" },
-      { file: "20260903_145534.jpg", caption: "Side view from North" }
+      { file: "source_images/20260903_145609.jpg", caption: "Front entrance" },
+      { file: "source_images/20260903_145537.jpg", caption: "Side view from North" },
+      { file: "source_images/20260903_145534.jpg", caption: "Side view from North" }
     ],
     placeholder: false
   },
@@ -270,13 +270,13 @@ const propertyData = {
     region: "Bungalow 3",
     description: "Bungalow parallel to the top (riverfront) boundary, with open-plan living and direct river views. Modern open-plan kitchen and living area, with a modern bathroom and hot shower.",
     photos: [
-      { file: "20240504_171616.jpg", caption: "River view from Bungalow 3" },
-      { file: "20240504_171709.jpg", caption: "River view from Bungalow 3" },
-      { file: "20240524_163802.jpg", caption: "Open plan living" },
-      { file: "20240526_180921.jpg", caption: "Open plan living" },
-      { file: "20240526_181001.jpg", caption: "Verandah views" },
-      { file: "20240526_181012.jpg", caption: "Verandah views" },
-      { file: "20260903_145551.jpg", caption: "Outdoor entertainment area" }
+      { file: "source_images/20240504_171616.jpg", caption: "River view from Bungalow 3" },
+      { file: "source_images/20240504_171709.jpg", caption: "River view from Bungalow 3" },
+      { file: "source_images/20240524_163802.jpg", caption: "Open plan living" },
+      { file: "source_images/20240526_180921.jpg", caption: "Open plan living" },
+      { file: "source_images/20240526_181001.jpg", caption: "Verandah views" },
+      { file: "source_images/20240526_181012.jpg", caption: "Verandah views" },
+      { file: "source_images/20260903_145551.jpg", caption: "Outdoor entertainment area" }
     ],
     placeholder: false
   },
@@ -287,9 +287,9 @@ const propertyData = {
     region: "Bungalow 1",
     description: "Bungalow parallel to the right (north) boundary, closer to the river end of the block. Modern open-plan kitchen and living area, with a modern bathroom and hot shower.",
     photos: [
-      { file: "20260903_145128.jpg", caption: "View of frontage" },
-      { file: "20260903_145236.jpg", caption: "Open plan living" },
-      { file: "20260903_145248.jpg", caption: "Open plan living" }
+      { file: "source_images/20260903_145128.jpg", caption: "View of frontage" },
+      { file: "source_images/20260903_145236.jpg", caption: "Open plan living" },
+      { file: "source_images/20260903_145248.jpg", caption: "Open plan living" }
     ],
     placeholder: false
   },
@@ -300,11 +300,11 @@ const propertyData = {
     region: "Bungalow 2",
     description: "Bungalow parallel to the right (north) boundary, positioned below Bungalow 1. Modern open-plan kitchen and living area, with a modern bathroom and hot shower.",
     photos: [
-      { file: "20240621_101712.jpg", caption: "Open area living with modern kitchen" },
-      { file: "20191126_074148.jpg", caption: "Bathroom" },
-      { file: "20260812_124941.jpg", caption: "View of frontage" },
-      { file: "20260903_145416.jpg", caption: "Open plan living" },
-      { file: "20260903_145412.jpg", caption: "Open plan living" }
+      { file: "source_images/20240621_101712.jpg", caption: "Open area living with modern kitchen" },
+      { file: "source_images/20191126_074148.jpg", caption: "Bathroom" },
+      { file: "source_images/20260812_124941.jpg", caption: "View of frontage" },
+      { file: "source_images/20260903_145416.jpg", caption: "Open plan living" },
+      { file: "source_images/20260903_145412.jpg", caption: "Open plan living" }
     ],
     placeholder: false
   },
@@ -328,7 +328,7 @@ const propertyData = {
     region: "Moto-Parking",
     description: "Covered parking for motorcycles and bicycles, one of three sections in the services building that runs parallel to the left (south) boundary.",
     photos: [
-      { file: "20260812_124927.jpg", caption: "Parking for motorcycles and bicycles" }
+      { file: "source_images/20260812_124927.jpg", caption: "Parking for motorcycles and bicycles" }
     ],
     placeholder: false
   },
@@ -339,7 +339,7 @@ const propertyData = {
     region: "Workshop",
     description: "Woodworking and metalworking workshop, the middle section of the services building — 8 metres of workbench space.",
     photos: [
-      { file: "20260812_132027.jpg", caption: "8 metres of workbench space" }
+      { file: "source_images/20260812_132027.jpg", caption: "8 metres of workbench space" }
     ],
     placeholder: false
   },
@@ -350,7 +350,7 @@ const propertyData = {
     region: "Vehicle Parking",
     description: "Covered parking for one vehicle, the third section of the services building, closest to the rear gate and access road.",
     photos: [
-      { file: "20260903_145437.jpg", caption: "Parking for one vehicle" }
+      { file: "source_images/20260903_145437.jpg", caption: "Parking for one vehicle" }
     ],
     placeholder: false
   },
@@ -373,10 +373,10 @@ const propertyData = {
     region: "Property views",
     description: "Main vehicle/pedestrian gate on the bottom (east) boundary, opening onto the access road.",
     photos: [
-      { file: "20240824_144505.jpg", caption: "Rear gate from the access road" },
-      { file: "20250323_144855.jpg", caption: "Rear gate from the access road" },
-      { file: "20260812_132036.jpg", caption: "View from rear gate" },
-      { file: "20260812_131959.jpg", caption: "View toward rear gate" }
+      { file: "source_images/20240824_144505.jpg", caption: "Rear gate from the access road" },
+      { file: "source_images/20250323_144855.jpg", caption: "Rear gate from the access road" },
+      { file: "source_images/20260812_132036.jpg", caption: "View from rear gate" },
+      { file: "source_images/20260812_131959.jpg", caption: "View toward rear gate" }
     ],
     placeholder: false
   },
@@ -402,38 +402,38 @@ const propertyData = {
    general gallery shot.
    ========================================================================== */
 const galleryPhotos = [
-  { file: "20211127_173227.jpg", region: "River views", caption: "Sunset with light rays" },
-  { file: "20220611_183624.jpg", region: "River views", caption: "Bokor Pyramid" },
-  { file: "20220625_171805.jpg", region: "River views", caption: "Bokor afternoon sun ray" },
-  { file: "20220625_171835.jpg", region: "River views", caption: "Bokor afternoon sun ray" },
-  { file: "20220819_182331.jpg", region: "River views", caption: "Sunset treescape" },
-  { file: "20220819_182556.jpg", region: "River views", caption: "Bokor sunset" },
-  { file: "20220819_182728.jpg", region: "River views", caption: "Bokor sunset" },
-  { file: "20220914_072638.jpg", region: "River views", caption: "River orchids" },
-  { file: "20240304_125451.jpg", region: "River views", caption: "River deck lunch" },
-  { file: "20240629_173300.jpg", region: "River views", caption: "Swimming fun times from the floating pontoon" },
+  { file: "source_images/20211127_173227.jpg", region: "River views", caption: "Sunset with light rays" },
+  { file: "source_images/20220611_183624.jpg", region: "River views", caption: "Bokor Pyramid" },
+  { file: "source_images/20220625_171805.jpg", region: "River views", caption: "Bokor afternoon sun ray" },
+  { file: "source_images/20220625_171835.jpg", region: "River views", caption: "Bokor afternoon sun ray" },
+  { file: "source_images/20220819_182331.jpg", region: "River views", caption: "Sunset treescape" },
+  { file: "source_images/20220819_182556.jpg", region: "River views", caption: "Bokor sunset" },
+  { file: "source_images/20220819_182728.jpg", region: "River views", caption: "Bokor sunset" },
+  { file: "source_images/20220914_072638.jpg", region: "River views", caption: "River orchids" },
+  { file: "source_images/20240304_125451.jpg", region: "River views", caption: "River deck lunch" },
+  { file: "source_images/20240629_173300.jpg", region: "River views", caption: "Swimming fun times from the floating pontoon" },
   // { file: "20260811_085227.mp4", region: "River views", caption: "Kayaking from the pontoon", type: "video" }, // disabled — see note above pontoon.videos
-  { file: "IMG-20250215-WA0003.jpg", region: "River views", caption: "Kayaking under the canopy" },
-  { file: "IMG-20250215-WA0005.jpg", region: "River views", caption: "Kayaking under the canopy" },
-  { file: "IMG-20250215-WA0006.jpg", region: "River views", caption: "Kayaking under the canopy" },
-  { file: "20211210_183630.jpg", region: "Gardens", caption: "Coconuts" },
-  { file: "20200225_065327.jpg", region: "Surroundings", caption: "Salt fields at sunset" },
-  { file: "20240824_144505.jpg", region: "Property views", caption: "Rear gate from the access road" },
-  { file: "20250323_144855.jpg", region: "Property views", caption: "Rear gate from the access road" },
-  { file: "20260812_131959.jpg", region: "Property views", caption: "View toward rear gate" },
-  { file: "20260812_132019.jpg", region: "Property views", caption: "Rear driveway" },
-  { file: "milky way 1.jpg", region: "Property views", caption: "Milky Way, blue shift" },
-  { file: "Milky way Amine.jpg", region: "Property views", caption: "Milky Way, red shift" },
-  { file: "20200419_162947.jpg", region: "Property views", caption: "Mango trees" },
-  { file: "20260330_074321.jpg", region: "Property views", caption: "So many fresh mangoes" }
+  { file: "source_images/IMG-20250215-WA0003.jpg", region: "River views", caption: "Kayaking under the canopy" },
+  { file: "source_images/IMG-20250215-WA0005.jpg", region: "River views", caption: "Kayaking under the canopy" },
+  { file: "source_images/IMG-20250215-WA0006.jpg", region: "River views", caption: "Kayaking under the canopy" },
+  { file: "source_images/20211210_183630.jpg", region: "Gardens", caption: "Coconuts" },
+  { file: "source_images/20200225_065327.jpg", region: "Surroundings", caption: "Salt fields at sunset" },
+  { file: "source_images/20240824_144505.jpg", region: "Property views", caption: "Rear gate from the access road" },
+  { file: "source_images/20250323_144855.jpg", region: "Property views", caption: "Rear gate from the access road" },
+  { file: "source_images/20260812_131959.jpg", region: "Property views", caption: "View toward rear gate" },
+  { file: "source_images/20260812_132019.jpg", region: "Property views", caption: "Rear driveway" },
+  { file: "source_images/milky way 1.jpg", region: "Property views", caption: "Milky Way, blue shift" },
+  { file: "source_images/Milky way Amine.jpg", region: "Property views", caption: "Milky Way, red shift" },
+  { file: "source_images/20200419_162947.jpg", region: "Property views", caption: "Mango trees" },
+  { file: "source_images/20260330_074321.jpg", region: "Property views", caption: "So many fresh mangoes" }
 ];
 
 /* ==========================================================================
    Site-level config — not part of the block plan.
    ========================================================================== */
 const siteConfig = {
-  homeHeroImage: "20211127_173710.jpg",
-  homeHeroImageMobile: "20211127_173710-portrait.jpg"
+  homeHeroImage: "source_images/20211127_173710.jpg",
+  homeHeroImageMobile: "source_images/20211127_173710-portrait.jpg"
 };
 
 /* Click handler pattern (for when index.html is built):

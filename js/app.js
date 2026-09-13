@@ -92,6 +92,62 @@
   }
 
   /* ------------------------------------------------------------------ *
+   *  Development-plan SVG
+   *  Built once, at load, from the Property section's #block-plan — the
+   *  Development section used to carry its own hand-copied duplicate of
+   *  every room/feature coordinate, which meant every measurement update
+   *  had to be applied twice (see BlockPlanDrawing.md). Now there's one
+   *  geometry source: this clones #block-plan, drops the legend, appends
+   *  the proposed-development-area overlay (unique to this section), and
+   *  must run BEFORE initBlockPlan() below so the clone doesn't pick up
+   *  the .kp-clickable/tabindex/role/aria-label attributes that function
+   *  adds to the original — the development plan stays static, no click
+   *  targets, same as before consolidation.
+   * ------------------------------------------------------------------ */
+
+  var DEVELOPMENT_AREA_OVERLAY_SVG =
+    '<!-- PROPOSED NEW DEVELOPMENT AREA (draft — see BlockPlanDrawing.md' +
+    ' Round 9). Repositioned for the corrected 70m-long block: top edge' +
+    ' sits 3m below Bungalow 2 (bottom at y=527.01), bottom edge sits 1m' +
+    ' above the (now 4m closer) Bottom Boundary at y=1047.' +
+    ' x=221.14, y=572.01, w=132, h=459.99 (px) = 8.8m x 30.67m = ~270 sqm -->' +
+    '<g id="proposed-development">' +
+    '<rect id="proposed-development-area" x="221.14285" y="572.01"' +
+    ' width="132" height="459.99" fill="#fff8e1" fill-opacity="0.55"' +
+    ' stroke="#c62828" stroke-width="2" stroke-dasharray="8,5" />' +
+    '<text data-i18n="development.rectLabel1" x="287.14285" y="790.58"' +
+    ' text-anchor="middle" font-size="9" font-weight="bold" fill="#b71c1c"' +
+    ' id="text-dev-label1">Proposed new</text>' +
+    '<text data-i18n="development.rectLabel2" x="287.14285" y="802.58"' +
+    ' text-anchor="middle" font-size="9" font-weight="bold" fill="#b71c1c"' +
+    ' id="text-dev-label2">development area</text>' +
+    '<text x="287.14285" y="823.58" text-anchor="middle" font-size="10"' +
+    ' font-weight="bold" fill="#b71c1c" id="text-dev-area">&#8776; 270 m&#178;</text>' +
+    '</g>';
+
+  function buildDevelopmentPlan() {
+    var source = document.getElementById("block-plan");
+    var container = document.getElementById("development-plan-container");
+    if (!source || !container) return;
+
+    var clone = source.cloneNode(true);
+    clone.setAttribute("id", "development-plan");
+
+    // Suffix every id in the clone so it never collides with the
+    // original's — same "-dev" convention the old hand-copied markup used.
+    clone.querySelectorAll("[id]").forEach(function (el) {
+      el.setAttribute("id", el.getAttribute("id") + "-dev");
+    });
+
+    var legend = clone.querySelector("#legend-dev");
+    if (legend) legend.remove();
+
+    clone.insertAdjacentHTML("beforeend", DEVELOPMENT_AREA_OVERLAY_SVG);
+
+    container.appendChild(clone);
+  }
+
+  /* ------------------------------------------------------------------ *
    *  Block-plan click targets
    *  Wires every SVG element whose id matches a propertyData key to the
    *  popup, and marks it visually interactive (see .kp-clickable in
@@ -147,8 +203,25 @@
      content per svgLabelTranslations on language change, remembering the
      original English the first time this runs so switching back to
      English (or to a language with no override for a given id) restores
-     it exactly rather than leaving stale text behind. */
+     it exactly rather than leaving stale text behind.
+
+     The Development section's plan is a runtime clone of #block-plan
+     (see buildDevelopmentPlan()) with every id suffixed "-dev" — it's
+     built once, before this function ever runs, so without applying the
+     same overrides to it (via that suffix) it would silently stay in
+     English forever after the first language switch. Both svgs share
+     one svgOriginalLabels snapshot since they start out identical. */
   let svgOriginalLabels = null;
+
+  function applySvgLabelOverrides(svg, idSuffix) {
+    if (!svg) return;
+    const overrides = svgLabelTranslations[currentLang];
+    Object.keys(svgOriginalLabels).forEach(function (id) {
+      const el = svg.getElementById ? svg.getElementById(id + idSuffix) : document.getElementById(id + idSuffix);
+      if (!el) return;
+      el.textContent = (overrides && overrides[id] != null) ? overrides[id] : svgOriginalLabels[id];
+    });
+  }
 
   function translateSvgLabels() {
     const svg = document.getElementById("block-plan");
@@ -164,12 +237,8 @@
       });
     }
 
-    const overrides = svgLabelTranslations[currentLang];
-    Object.keys(svgOriginalLabels).forEach(function (id) {
-      const el = svg.getElementById ? svg.getElementById(id) : document.getElementById(id);
-      if (!el) return;
-      el.textContent = (overrides && overrides[id] != null) ? overrides[id] : svgOriginalLabels[id];
-    });
+    applySvgLabelOverrides(svg, "");
+    applySvgLabelOverrides(document.getElementById("development-plan"), "-dev");
   }
 
   /* ------------------------------------------------------------------ *
@@ -214,7 +283,7 @@
       btn.type = "button";
       btn.className =
         "flex-shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 " +
-        (i === currentPhotoIndex ? "border-emerald-600" : "border-transparent");
+        (i === currentPhotoIndex ? "border-river-600" : "border-transparent");
       btn.setAttribute("aria-label", tFormat("modal.photoOf", { i: i + 1, n: currentPhotos.length }));
       const thumb = document.createElement("img");
       thumb.src = photo.file;
@@ -366,10 +435,15 @@
     galleryPhotos.forEach(function (photo, i) {
       const caption = getGalleryText(photo.file, "caption", photo.caption);
 
+      // No forced aspect-square crop — each photo keeps its own natural
+      // proportions (portrait/landscape) inside a CSS-columns "masonry"
+      // layout (see #kp-gallery-grid in index.html), per the design
+      // brief's ask to let real photography breathe instead of
+      // identical cropped tiles (BlockPlanDrawing.md Round 10).
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className =
-        "group relative aspect-square overflow-hidden rounded-lg bg-stone-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600";
+        "group relative block w-full mb-3 sm:mb-4 break-inside-avoid overflow-hidden rounded-lg bg-coconut focus:outline-none focus-visible:ring-2 focus-visible:ring-tide-600";
       btn.setAttribute("aria-label", (photo.type === "video" ? t("gallery.playVideo") : "") + caption + t("gallery.viewLarger"));
 
       if (photo.type === "video") {
@@ -380,21 +454,21 @@
         vid.src = photo.file;
         vid.muted = true;
         vid.preload = "metadata";
-        vid.className = "w-full h-full object-cover";
+        vid.className = "w-full h-auto block";
         btn.appendChild(vid);
 
         const playIcon = document.createElement("span");
         playIcon.className =
           "absolute inset-0 flex items-center justify-center";
         playIcon.innerHTML =
-          '<span class="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center shadow"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-stone-900 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>';
+          '<span class="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center shadow"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-river translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>';
         btn.appendChild(playIcon);
       } else {
         const img = document.createElement("img");
         img.src = photo.file;
         img.alt = caption;
         img.loading = "lazy";
-        img.className = "w-full h-full object-cover transition-transform duration-200 group-hover:scale-105";
+        img.className = "w-full h-auto block transition-transform duration-200 group-hover:scale-105";
         btn.appendChild(img);
       }
 
@@ -429,22 +503,54 @@
     if (salesBody) salesBody.innerHTML = "";
     if (salesWrap) salesWrap.hidden = true;
 
-    if (primaryList && typeof primaryContacts !== "undefined") {
+    if (primaryList && typeof primaryContacts !== "undefined" && primaryContacts.length) {
       const langNames = contactLanguageNames[currentLang] || contactLanguageNames.en;
+
+      // Side-by-side table: one column per contact — "Language — Name" on
+      // the top row, the phone (tel: link) on the row below. Email (if set)
+      // sits under both, spanning the width. Layout per Robert, 2026-09-13.
+      const table = document.createElement("table");
+      table.className = "w-full border-collapse text-left";
+      const nameRow = document.createElement("tr");
+      const phoneRow = document.createElement("tr");
+
       primaryContacts.forEach(function (contact) {
-        const li = document.createElement("li");
-        const strong = document.createElement("span");
-        strong.className = "font-medium text-stone-900";
         const langLabel = langNames[contact.language] || contact.language;
-        strong.textContent = langLabel + " — " + contact.name;
+
+        const nameCell = document.createElement("td");
+        nameCell.className = "align-top py-1 pr-4 font-medium text-charcoal";
+        nameCell.textContent = langLabel + " — " + contact.name;
+
+        const phoneCell = document.createElement("td");
+        phoneCell.className = "align-top py-1 pr-4";
         const phone = document.createElement("a");
-        phone.href = "tel:" + contact.phone.replace(/\s+/g, "");
-        phone.className = "block text-emerald-700 hover:underline";
+        phone.href = "tel:" + contact.phone.replace(/[^+\d]/g, "");
+        phone.className = "whitespace-nowrap text-tide-700 hover:underline";
         phone.textContent = contact.phone;
-        li.appendChild(strong);
-        li.appendChild(phone);
-        primaryList.appendChild(li);
+        phoneCell.appendChild(phone);
+
+        nameRow.appendChild(nameCell);
+        phoneRow.appendChild(phoneCell);
       });
+
+      table.appendChild(nameRow);
+      table.appendChild(phoneRow);
+      primaryList.appendChild(table);
+
+      if (typeof primaryContactEmail !== "undefined" && primaryContactEmail) {
+        const emailBlock = document.createElement("div");
+        emailBlock.className = "mt-4 pt-4 border-t border-river/10";
+        const emailLabel = document.createElement("span");
+        emailLabel.className = "mb-1 block text-xs uppercase tracking-wide text-charcoal/55";
+        emailLabel.textContent = "Email";
+        const email = document.createElement("a");
+        email.href = "mailto:" + primaryContactEmail;
+        email.className = "break-all text-tide-700 hover:underline";
+        email.textContent = primaryContactEmail;
+        emailBlock.appendChild(emailLabel);
+        emailBlock.appendChild(email);
+        primaryList.appendChild(emailBlock);
+      }
     }
 
     // Sales Contact is a third party (agent, etc.) who may not exist yet.
@@ -459,7 +565,7 @@
     ) {
       const nameParts = [salesContact.firstName, salesContact.surname].filter(Boolean);
       const nameLine = document.createElement("p");
-      nameLine.className = "font-medium text-stone-900";
+      nameLine.className = "font-medium text-charcoal";
       nameLine.textContent = nameParts.join(" ");
       salesBody.appendChild(nameLine);
 
@@ -473,7 +579,7 @@
         if (!phoneNumber) return;
         const phone = document.createElement("a");
         phone.href = "tel:" + phoneNumber.replace(/\s+/g, "");
-        phone.className = "block text-emerald-700 hover:underline";
+        phone.className = "block text-tide-700 hover:underline";
         phone.textContent = phoneNumber;
         salesBody.appendChild(phone);
       });
@@ -495,6 +601,9 @@
     });
     document.querySelectorAll("[data-i18n-aria-label]").forEach(function (el) {
       el.setAttribute("aria-label", t(el.getAttribute("data-i18n-aria-label")));
+    });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+      el.setAttribute("placeholder", t(el.getAttribute("data-i18n-placeholder")));
     });
   }
 
@@ -544,6 +653,45 @@
   }
 
   /* ------------------------------------------------------------------ *
+   *  Contact form (Formspree)
+   *  SAFETY GUARD: until the real endpoint is wired up in index.html
+   *  (see the TODO there — action must be "https://formspree.io/f/<id>"),
+   *  a submit attempt does NOT POST anywhere; it shows a short status
+   *  note instead, so a visitor never gets a dead-end 404 page. Once the
+   *  /f/<id> form ID is in place, normal browser submission to Formspree
+   *  takes over with no further JS needed.
+   * ------------------------------------------------------------------ */
+
+  function initContactForm() {
+    const form = document.getElementById("contact-form");
+    if (!form) return;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const action = (form.getAttribute("action") || "").replace(/\/+$/, "");
+      const endpointReady = /^https:\/\/formspree\.io\/f\/[a-z0-9]+$/i.test(action);
+      const button = form.querySelector("button[type=\"submit\"]");
+      if (button) {
+        button.disabled = true;
+        setTimeout(function () { button.disabled = false; }, 3000);
+      }
+      let note = form.querySelector("[data-form-guard]");
+      if (!endpointReady) {
+        if (!note) {
+          note = document.createElement("p");
+          note.setAttribute("data-form-guard", "");
+          note.className = "mt-4 text-center text-sm text-laterite-700";
+          form.appendChild(note);
+        }
+        note.textContent = t("contact.formGuard");
+        return;
+      }
+      if (note) note.remove();
+      form.submit();
+    });
+  }
+
+  /* ------------------------------------------------------------------ *
    *  Mobile nav toggle
    * ------------------------------------------------------------------ */
 
@@ -570,10 +718,12 @@
   /* ------------------------------------------------------------------ */
 
   document.addEventListener("DOMContentLoaded", function () {
+    buildDevelopmentPlan();
     initBlockPlan();
     initModal();
     initLanguageSwitcher();
     initMobileNav();
+    initContactForm();
     // Applies currentLang (English by default, or whatever was
     // remembered from a previous visit) to every piece of translated
     // content, including the initial gallery/contacts render — replaces
