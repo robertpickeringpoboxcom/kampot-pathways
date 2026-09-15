@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Favicon built from the real brand mark (same paths as index.html's
+       .brand-icon), not a new design. River-teal background + mist waves
+       so it reads at 16px, unlike the transparent-stroke nav version. -->
+  <rect width="32" height="32" rx="6" fill="#1b4b4a"/>
+  <g transform="translate(4,4)" fill="none" stroke="#F6F4EF" stroke-width="1.8" stroke-linecap="round">
+    <path d="M3 8c3-2.2 6-2.2 9 0s6 2.2 9 0"/>
+    <path d="M3 13c3-2.2 6-2.2 9 0s6 2.2 9 0"/>
+    <path d="M3 18c3-2.2 6-2.2 9 0s6 2.2 9 0"/>
+  </g>
+</svg>
