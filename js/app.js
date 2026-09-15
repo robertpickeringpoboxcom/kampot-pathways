@@ -38,6 +38,73 @@
 
   let currentLang = readStoredLang();
 
+  /* ------------------------------------------------------------------ *
+   *  Theme state
+   *  Three page themes (light = default, dusk, terracotta) selected from
+   *  the #services swatch buttons. "light" is the :root default, so the
+   *  <html data-theme="…"> attribute is removed for it and set to "dusk"
+   *  or "terracotta" otherwise — the [data-theme="…"] blocks in
+   *  css/style.css re-point the brand CSS variables accordingly.
+   * ------------------------------------------------------------------ */
+
+  const SUPPORTED_THEMES = ["light", "dusk", "terracotta"];
+  const THEME_STORAGE_KEY = "kp-theme";
+
+  function readStoredTheme() {
+    try {
+      const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+      if (stored && SUPPORTED_THEMES.indexOf(stored) !== -1) return stored;
+    } catch (e) {
+      // localStorage unavailable (private browsing, etc.) — fall through to default
+    }
+    return "light";
+  }
+
+  let currentTheme = readStoredTheme();
+
+  /* syncThemeSwitcherUI() — aria-pressed + the [data-theme-active] marker
+     (accent ring, see css/style.css) on the #services swatch buttons. */
+  function syncThemeSwitcherUI() {
+    document.querySelectorAll("[data-theme-set]").forEach(function (btn) {
+      const isActive = btn.getAttribute("data-theme-set") === currentTheme;
+      btn.setAttribute("aria-pressed", String(isActive));
+      if (isActive) {
+        btn.setAttribute("data-theme-active", "");
+      } else {
+        btn.removeAttribute("data-theme-active");
+      }
+    });
+  }
+
+  function setTheme(theme) {
+    if (SUPPORTED_THEMES.indexOf(theme) === -1) return;
+    currentTheme = theme;
+    if (theme === "light") {
+      document.documentElement.removeAttribute("data-theme");
+    } else {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch (e) {
+      // localStorage unavailable — the choice just won't persist across visits
+    }
+    syncThemeSwitcherUI();
+  }
+
+  /* Apply the stored theme as early as possible: this script tag sits at
+     the end of <body>, so <html> and the #services swatches are already
+     in the DOM — the right palette applies before first paint. */
+  setTheme(currentTheme);
+
+  function initThemeSwitch() {
+    document.querySelectorAll("[data-theme-set]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        setTheme(btn.getAttribute("data-theme-set"));
+      });
+    });
+  }
+
   /* t(key) — static UI copy from uiStrings, English fallback if a key is
      missing in the current language. */
   function t(key) {
@@ -722,6 +789,7 @@
     initBlockPlan();
     initModal();
     initLanguageSwitcher();
+    initThemeSwitch();
     initMobileNav();
     initContactForm();
     // Applies currentLang (English by default, or whatever was

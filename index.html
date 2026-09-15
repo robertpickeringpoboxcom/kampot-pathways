@@ -22,13 +22,19 @@
   tailwind.config = {
     theme: {
       extend: {
+        /* Theme switcher (chunk 1): every brand color is now a CSS variable
+           holding its RGB channels (defined in css/style.css :root), so a
+           [data-theme="…"] block can re-point the same names to a different
+           palette. Opacity modifiers (border-river/10, text-charcoal/75, …)
+           keep working because <alpha-value> applies the alpha to the
+           channels rather than baking a hex in. */
         colors: {
-          river:    { DEFAULT: "#1b4b4a", 50: "#7cd0ce", 100: "#62c6c4", 200: "#41b4b2", 300: "#338f8d", 400: "#276d6b", 500: "#205a59", 600: "#1b4b4a", 700: "#102d2c", 800: "#050f0f", 900: "#030807", 950: "#030807" },
-          tide:     { DEFAULT: "#4c8c82", 50: "#d5e8e5", 100: "#bedcd7", 200: "#9dcac3", 300: "#7cb8ae", 400: "#5ea89c", 500: "#53998e", 600: "#4c8c82", 700: "#3e7269", 800: "#2f5751", 900: "#213d38", 950: "#162926" },
-          laterite: { DEFAULT: "#a8552e", 50: "#f1d7cb", 100: "#e9c1af", 200: "#dea387", 300: "#d3845f", 400: "#c9683b", 500: "#b85d32", 600: "#a8552e", 700: "#884525", 800: "#68351c", 900: "#482414", 950: "#30180d" },
-          mist: "#F6F4EF",
-          charcoal: "#22282A",
-          coconut: "#E8EDE3",
+          river:    { DEFAULT: "rgb(var(--kp-river) / <alpha-value>)",      50: "rgb(var(--kp-river-50) / <alpha-value>)",  100: "rgb(var(--kp-river-100) / <alpha-value>)",  200: "rgb(var(--kp-river-200) / <alpha-value>)",  300: "rgb(var(--kp-river-300) / <alpha-value>)",  400: "rgb(var(--kp-river-400) / <alpha-value>)",  500: "rgb(var(--kp-river-500) / <alpha-value>)",  600: "rgb(var(--kp-river-600) / <alpha-value>)",  700: "rgb(var(--kp-river-700) / <alpha-value>)",  800: "rgb(var(--kp-river-800) / <alpha-value>)",  900: "rgb(var(--kp-river-900) / <alpha-value>)",  950: "rgb(var(--kp-river-950) / <alpha-value>)" },
+          tide:     { DEFAULT: "rgb(var(--kp-tide) / <alpha-value>)",      50: "rgb(var(--kp-tide-50) / <alpha-value>)",  100: "rgb(var(--kp-tide-100) / <alpha-value>)",  200: "rgb(var(--kp-tide-200) / <alpha-value>)",  300: "rgb(var(--kp-tide-300) / <alpha-value>)",  400: "rgb(var(--kp-tide-400) / <alpha-value>)",  500: "rgb(var(--kp-tide-500) / <alpha-value>)",  600: "rgb(var(--kp-tide-600) / <alpha-value>)",  700: "rgb(var(--kp-tide-700) / <alpha-value>)",  800: "rgb(var(--kp-tide-800) / <alpha-value>)",  900: "rgb(var(--kp-tide-900) / <alpha-value>)",  950: "rgb(var(--kp-tide-950) / <alpha-value>)" },
+          laterite: { DEFAULT: "rgb(var(--kp-laterite) / <alpha-value>)",  50: "rgb(var(--kp-laterite-50) / <alpha-value>)",  100: "rgb(var(--kp-laterite-100) / <alpha-value>)", 200: "rgb(var(--kp-laterite-200) / <alpha-value>)", 300: "rgb(var(--kp-laterite-300) / <alpha-value>)", 400: "rgb(var(--kp-laterite-400) / <alpha-value>)", 500: "rgb(var(--kp-laterite-500) / <alpha-value>)", 600: "rgb(var(--kp-laterite-600) / <alpha-value>)", 700: "rgb(var(--kp-laterite-700) / <alpha-value>)", 800: "rgb(var(--kp-laterite-800) / <alpha-value>)", 900: "rgb(var(--kp-laterite-900) / <alpha-value>)", 950: "rgb(var(--kp-laterite-950) / <alpha-value>)" },
+          mist: "rgb(var(--kp-mist) / <alpha-value>)",
+          charcoal: "rgb(var(--kp-charcoal) / <alpha-value>)",
+          coconut: "rgb(var(--kp-coconut) / <alpha-value>)",
         },
         fontFamily: {
           serif: ["Fraunces", "ui-serif", "Georgia", "serif"],
@@ -161,7 +167,7 @@
     <h1 data-i18n="hero.title" class="font-serif text-4xl sm:text-6xl font-semibold tracking-tight max-w-2xl">
       Absolute riverfront living on the Kampot River
     </h1>
-    <p data-i18n="hero.subtitle" class="mt-4 text-lg text-mist/90 max-w-2xl">
+    <p data-i18n="hero.subtitle" class="mt-4 text-lg text-white/90 max-w-2xl">
       A 70m-deep riverfront block, 25.6m wide at the water narrowing to
       19m at the street, with a 4-bedroom house, three bungalows, a
       private deck and pontoon — for sale directly from the owner. The
@@ -1233,6 +1239,33 @@
 <section id="services" class="py-16 sm:py-24 border-b border-river/10">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <h2 data-i18n="services.heading" class="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-river">IT Development Services</h2>
+
+    <!-- Theme switcher UI (chunk 3 markup — wired by chunk 4 js/app.js setTheme/initThemeSwitch):
+         prompt line translates via data-i18n (services.themePrompt, added in chunk 4);
+         button aria-labels stay English per decision 3A. Active button gets an
+         accent outline via [data-theme-active] (chunk 4 CSS/JS). -->
+    <p class="mt-6 flex items-center gap-1 text-sm font-medium text-charcoal/80">
+      <span data-i18n="services.themePrompt">Try different styles here</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-charcoal/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </p>
+
+    <div class="mt-3 flex items-start gap-4" role="group" aria-label="Page theme">
+      <div class="flex flex-col items-center gap-1.5">
+        <button type="button" data-theme-set="light" aria-pressed="true" data-theme-active class="w-9 h-9 rounded-full kp-theme-swatch-light border-2 border-river/30 transition-colors" aria-label="Light theme"></button>
+        <span class="text-xs font-medium text-charcoal/70" data-i18n="services.themeLight">Light</span>
+      </div>
+      <div class="flex flex-col items-center gap-1.5">
+        <button type="button" data-theme-set="dusk" aria-pressed="false" class="w-9 h-9 rounded-full bg-river-900 border-2 border-river/30 transition-colors" aria-label="Dusk theme"></button>
+        <span class="text-xs font-medium text-charcoal/70" data-i18n="services.themeDusk">Dusk</span>
+      </div>
+      <div class="flex flex-col items-center gap-1.5">
+        <button type="button" data-theme-set="terracotta" aria-pressed="false" class="w-9 h-9 rounded-full bg-laterite-600 border-2 border-river/30 transition-colors" aria-label="Terracotta theme"></button>
+        <span class="text-xs font-medium text-charcoal/70" data-i18n="services.themeTerracotta">Terracotta</span>
+      </div>
+    </div>
+
     <p data-i18n="services.body" class="mt-4 text-charcoal/75 max-w-2xl">
       This site itself is a working example of Claude-collaborative web
       development — full details on remote development services coming

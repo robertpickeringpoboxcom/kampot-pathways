@@ -103,6 +103,10 @@ const uiStrings = {
     "goods.comingSoon": "Listings coming soon",
 
     "services.heading": "IT Development Services",
+    "services.themePrompt": "Try different styles here",
+    "services.themeLight": "Light",
+    "services.themeDusk": "Dusk",
+    "services.themeTerracotta": "Terracotta",
     "services.body": "This site itself is a working example of Claude-collaborative web development — full details on remote development services coming soon. If you need a website like this, contact Robert — see below.",
 
     "retirement.heading": "Want to retire to Cambodia?",
@@ -201,6 +205,10 @@ const uiStrings = {
     "goods.comingSoon": "បញ្ជីលក់នឹងមកដល់ឆាប់ៗនេះ",
 
     "services.heading": "សេវាកម្មអភិវឌ្ឍន៍ IT",
+    "services.themePrompt": "សាកល្បងរូបរាងផ្សេងៗនៅទីនេះ",
+    "services.themeLight": "ស្រាល",
+    "services.themeDusk": "ល្ងាច",
+    "services.themeTerracotta": "ក្រហមដី",
     "services.body": "គេហទំព័រនេះផ្ទាល់ ជាឧទាហរណ៍ជាក់ស្តែងនៃការអភិវឌ្ឍន៍គេហទំព័រសហការជាមួយ Claude — ព័ត៌មានលម្អិតអំពីសេវាកម្មអភិវឌ្ឍន៍ពីចម្ងាយ នឹងមកដល់ឆាប់ៗនេះ។ ប្រសិនបើលោកអ្នកត្រូវការគេហទំព័រដូចនេះ សូមទាក់ទង Robert — មើលព័ត៌មានខាងក្រោម។",
 
     "retirement.heading": "ចង់ចូលនិវត្តន៍នៅកម្ពុជាទេ?",
@@ -299,6 +307,10 @@ const uiStrings = {
     "goods.comingSoon": "商品清单即将上线",
 
     "services.heading": "IT开发服务",
+    "services.themePrompt": "在这里试试不同的风格",
+    "services.themeLight": "浅色",
+    "services.themeDusk": "黄昏",
+    "services.themeTerracotta": "赭色",
     "services.body": "本网站本身即为 Claude 协作式网站开发的实际范例——远程开发服务的详细信息即将上线。如果您需要类似的网站，请联系 Robert——详见下方。",
 
     "retirement.heading": "想退休移居柬埔寨吗？",

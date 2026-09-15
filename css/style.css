@@ -31,6 +31,58 @@
   --kp-hero-zoom: 18s;
 }
 
+/* --- Brand color channels (theme switcher, chunk 1) ----------------------
+   The Tailwind config (index.html) now points every river/tide/laterite/
+   mist/charcoal/coconut utility at these RGB triples via
+   rgb(var(--kp-…) / <alpha-value>). The Light (default) values below are
+   identical to the hex the config held before this change, so the page
+   renders exactly as before until a [data-theme="…"] block re-points the
+   same names to a different palette (chunk 2). */
+:root {
+  --kp-mist: 246 244 239;         /* #F6F4EF */
+  --kp-charcoal: 34 40 42;        /* #22282A */
+  --kp-coconut: 232 237 227;      /* #E8EDE3 */
+
+  --kp-river: 27 75 74;           /* #1b4b4a (DEFAULT) */
+  --kp-river-50: 124 208 206;     /* #7cd0ce */
+  --kp-river-100: 98 198 196;     /* #62c6c4 */
+  --kp-river-200: 65 180 178;     /* #41b4b2 */
+  --kp-river-300: 51 143 141;     /* #338f8d */
+  --kp-river-400: 39 109 107;     /* #276d6b */
+  --kp-river-500: 32 90 89;       /* #205a59 */
+  --kp-river-600: 27 75 74;       /* #1b4b4a */
+  --kp-river-700: 16 45 44;       /* #102d2c */
+  --kp-river-800: 5 15 15;        /* #050f0f */
+  --kp-river-900: 3 8 7;          /* #030807 */
+  --kp-river-950: 3 8 7;          /* #030807 */
+
+  --kp-tide: 76 140 130;          /* #4c8c82 (DEFAULT) */
+  --kp-tide-50: 213 232 229;      /* #d5e8e5 */
+  --kp-tide-100: 190 220 215;     /* #bedcd7 */
+  --kp-tide-200: 157 202 195;     /* #9dcac3 */
+  --kp-tide-300: 124 184 174;     /* #7cb8ae */
+  --kp-tide-400: 94 168 156;      /* #5ea89c */
+  --kp-tide-500: 83 153 142;      /* #53998e */
+  --kp-tide-600: 76 140 130;      /* #4c8c82 */
+  --kp-tide-700: 62 114 105;      /* #3e7269 */
+  --kp-tide-800: 47 87 81;        /* #2f5751 */
+  --kp-tide-900: 33 61 56;        /* #213d38 */
+  --kp-tide-950: 22 41 38;        /* #162926 */
+
+  --kp-laterite: 168 85 46;       /* #a8552e (DEFAULT) */
+  --kp-laterite-50: 241 215 203;  /* #f1d7cb */
+  --kp-laterite-100: 233 193 175; /* #e9c1af */
+  --kp-laterite-200: 222 163 135; /* #dea387 */
+  --kp-laterite-300: 211 132 95;  /* #d3845f */
+  --kp-laterite-400: 201 104 59;  /* #c9683b */
+  --kp-laterite-500: 184 93 50;   /* #b85d32 */
+  --kp-laterite-600: 168 85 46;   /* #a8552e */
+  --kp-laterite-700: 136 69 37;   /* #884525 */
+  --kp-laterite-800: 104 53 28;   /* #68351c */
+  --kp-laterite-900: 72 36 20;    /* #482414 */
+  --kp-laterite-950: 48 24 13;    /* #30180d */
+}
+
 /* --- Block plan SVG ------------------------------------------------------ */
 
 /* The plan is tall and narrow (25m wide x 74m deep block), so it was being
@@ -621,4 +673,189 @@ footer a {
 }
 
 
+
+
+/* ==========================================================================
+   THEME SWITCHER — Dusk + Terracotta (Chunk 2)
+   --------------------------------------------------------------------------
+   :root above defines the Light palette (the site default). Each theme below
+   re-points the SAME brand variables to a new RGB triple set, so every
+   Tailwind utility that uses them (bg-river-800, text-charcoal, border-tide-100,
+   bg-laterite-600, …) flips with one attribute change on <html>.
+   Specificity: [data-theme="…"] (0,1,0) beats :root (0,1,0) by source order —
+   these blocks come after :root, so they win. Opacity modifiers (bg-white/10
+   etc.) keep working because the utilities emit rgb(var(--kp-…)/<alpha>).
+   ========================================================================== */
+
+/* --- Dusk (dark) ------------------------------------------------------- */
+[data-theme="dusk"] {
+  --kp-mist: 15 23 20;
+  --kp-coconut: 22 33 29;
+  --kp-charcoal: 236 234 226;
+  --kp-river: 154 177 163;
+  --kp-river-50: 239 245 242;
+  --kp-river-100: 227 237 232;
+  --kp-river-200: 210 225 219;
+  --kp-river-300: 192 211 202;
+  --kp-river-400: 174 196 184;
+  --kp-river-500: 154 177 163;
+  --kp-river-600: 136 160 145;
+  --kp-river-700: 122 146 130;
+  --kp-river-800: 111 133 118;
+  --kp-river-900: 102 121 108;
+  --kp-river-950: 94 111 99;
+  --kp-tide: 146 175 163;
+  --kp-tide-50: 238 245 243;
+  --kp-tide-100: 225 236 232;
+  --kp-tide-200: 207 224 219;
+  --kp-tide-300: 188 209 202;
+  --kp-tide-400: 167 192 183;
+  --kp-tide-500: 146 175 163;
+  --kp-tide-600: 127 158 144;
+  --kp-tide-700: 114 143 129;
+  --kp-tide-800: 103 130 116;
+  --kp-tide-900: 95 117 104;
+  --kp-tide-950: 87 106 94;
+  --kp-laterite: 191 131 99;
+  --kp-laterite-50: 247 239 231;
+  --kp-laterite-100: 241 224 209;
+  --kp-laterite-200: 231 205 183;
+  --kp-laterite-300: 220 182 155;
+  --kp-laterite-400: 207 157 126;
+  --kp-laterite-500: 191 131 99;
+  --kp-laterite-600: 173 107 77;
+  --kp-laterite-700: 151 91 65;
+  --kp-laterite-800: 129 75 54;
+  --kp-laterite-900: 111 61 44;
+  --kp-laterite-950: 93 51 36;
+}
+
+/* --- Terracotta (warm light) ------------------------------------------- */
+[data-theme="terracotta"] {
+  --kp-mist: 248 240 228;
+  --kp-coconut: 243 231 214;
+  --kp-charcoal: 58 44 36;
+  --kp-river: 78 60 40;
+  --kp-river-50: 246 240 228;
+  --kp-river-100: 238 226 206;
+  --kp-river-200: 224 204 174;
+  --kp-river-300: 206 180 144;
+  --kp-river-400: 184 154 116;
+  --kp-river-500: 158 128 92;
+  --kp-river-600: 134 106 74;
+  --kp-river-700: 112 88 60;
+  --kp-river-800: 94 73 49;
+  --kp-river-900: 78 60 40;
+  --kp-river-950: 64 48 32;
+  --kp-tide: 120 96 64;
+  --kp-tide-50: 247 241 230;
+  --kp-tide-100: 239 230 212;
+  --kp-tide-200: 226 212 184;
+  --kp-tide-300: 210 190 156;
+  --kp-tide-400: 190 166 128;
+  --kp-tide-500: 166 140 102;
+  --kp-tide-600: 142 116 80;
+  --kp-tide-700: 120 96 64;
+  --kp-tide-800: 100 79 52;
+  --kp-tide-900: 84 65 43;
+  --kp-tide-950: 70 54 35;
+  --kp-laterite: 196 112 82;
+  --kp-laterite-50: 252 240 232;
+  --kp-laterite-100: 247 223 209;
+  --kp-laterite-200: 238 197 174;
+  --kp-laterite-300: 226 168 138;
+  --kp-laterite-400: 212 140 108;
+  --kp-laterite-500: 196 112 82;
+  --kp-laterite-600: 176 92 62;
+  --kp-laterite-700: 152 74 48;
+  --kp-laterite-800: 130 58 36;
+  --kp-laterite-900: 112 46 28;
+  --kp-laterite-950: 96 38 24;
+}
+
+/* --- Dusk: targeted surface fixes ---------------------------------------
+   The site reuses brand-dark shades as BOTH muted text AND solid
+   button/badge backgrounds, and uses built-in `white` for card surfaces. In
+   a dark theme those two roles collide on one value, so the solid surfaces
+   are re-skinned here. Higher specificity ((0,2,0) > the utility's (0,1,0))
+   PLUS !important means these win over the CDN-injected Tailwind utilities
+   regardless of stylesheet load order. */
+[data-theme="dusk"] .bg-white {
+  background-color: #182420 !important;      /* cards → dark surface */
+}
+[data-theme="dusk"] .bg-river-700,
+[data-theme="dusk"] .bg-river-800,
+[data-theme="dusk"] .bg-river-900 {
+  background-color: #4f917c !important;      /* buttons/badges → saturated green (pops on near-black) */
+  color: #0c1512 !important;                 /* light-on-saturated stays readable */
+}
+[data-theme="dusk"] .bg-river-800:hover,
+[data-theme="dusk"] .bg-river-700:hover {
+  background-color: #63ab94 !important;      /* hover a touch lighter */
+}
+[data-theme="dusk"] .site-nav.scrolled {
+  background-image: none !important;         /* kill the light scrolled gradient */
+  background-color: #16211d !important;      /* solid dark nav */
+}
+
+/* Dusk: scrolled nav text must stay light. The base scrolled rules (above)
+   tune DARK text (#1b3a37/#1a3a2a) for the LIGHT scrolled background, but Dusk
+   keeps that background near-black (#16211d), so the dark text goes unreadable
+   (dark-on-dark). Reuse the transparent-state light values for legibility.
+   !important keeps these load-order-independent vs CDN-injected Tailwind
+   utilities — same rationale as the Dusk overrides just above. */
+[data-theme="dusk"] .site-nav.scrolled a,
+[data-theme="dusk"] .site-nav.scrolled span {
+  color: #fff !important;
+}
+[data-theme="dusk"] .site-nav.scrolled #kp-nav-toggle,
+[data-theme="dusk"] .site-nav.scrolled .nav-toggle {
+  color: #fff !important;
+  stroke: #fff !important;
+}
+[data-theme="dusk"] .site-nav.scrolled .brand__mark + span .font-serif {
+  color: #fff !important;
+}
+[data-theme="dusk"] .site-nav.scrolled .brand__mark + span .opacity-70 {
+  color: #e8d5a3 !important;   /* keep the brand tagline gold, as in the transparent state */
+  opacity: 0.85 !important;
+}
+[data-theme="dusk"] .site-nav.scrolled .kp-lang-btn,
+[data-theme="dusk"] .site-nav.scrolled .kp-lang-btn.kp-lang-active,
+[data-theme="dusk"] .site-nav.scrolled .kp-lang-btn:hover,
+[data-theme="dusk"] .site-nav.scrolled .kp-lang-btn:focus-visible {
+  color: #fff !important;
+}
+[data-theme="dusk"] .site-nav.scrolled .kp-lang-btn.kp-lang-active {
+  background: rgba(255,255,255,.18) !important;  /* light pill, matches the transparent-state active */
+}
+
+[data-theme="dusk"] ::selection {
+  color: #0f1714;                            /* dark text on the light selection tint */
+}
+
+/* --- Theme swatch active state (chunk 4) ----------------------------------
+   The selected #services theme button gets a hard accent ring so it reads
+   on any of the three palettes: tide-300 border-color (the !important wins
+   over the CDN-injected border-river/30 utility regardless of stylesheet
+   load order, same approach as the Dusk surface overrides above) plus a
+   soft tide-50 halo. The accent values are fixed hex on purpose — Dusk
+   re-points the tide scale itself darker, but the ring must stay bright. */
+[data-theme-active] {
+  border-color: #9cc9c2 !important;                       /* tide-300 */
+  box-shadow: 0 0 0 3px rgba(213, 232, 229, 0.85);        /* tide-50 halo */
+}
+
+/* --- Light swatch: fixed white across all themes --------------------------
+    The "Light" swatch in #services must always preview a white surface, even
+    while Dusk is active — so it carries a dedicated, unique class rather than
+    the shared .bg-white utility that [data-theme="dusk"] .bg-white (above)
+    legitimately re-skins dark for cards/modals. Fixed #ffffff on purpose:
+    Dusk re-points the palette variables themselves, but this swatch must stay
+    constant in every theme.
+    DO NOT let any [data-theme="…"] rule target .kp-theme-swatch-light — its
+    entire purpose is to be identical in Light, Dusk, and Terracotta. */
+.kp-theme-swatch-light {
+  background-color: #ffffff;
+}
 
