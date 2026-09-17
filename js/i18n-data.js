@@ -51,6 +51,7 @@ const uiStrings = {
     "nav.goods": "Goods for Sale",
     "nav.services": "IT Services",
     "nav.retirement": "Retirement Visa",
+    "nav.blog": "Rob's Blog",
     "nav.contact": "Contact",
     "nav.development": "Development",
     "nav.toggle": "Toggle menu",
@@ -62,6 +63,7 @@ const uiStrings = {
     "hero.ctaGallery": "View photo gallery",
     "hero.ctaDevelopment": "Development",
     "hero.ctaMap": "View on Google Maps",
+    "hero.ctaBlog": "Read Rob's Blog",
 
     "property.heading": "The Property",
     "property.intro": "An interactive scale plan of the block — 70m deep, 25.6m wide at the riverfront, narrowing to 19m at the street boundary, with the Kampot River running the full length of the top boundary. Click (or tap) any building, room or feature below for photos and details.",

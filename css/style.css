@@ -411,6 +411,20 @@ header a {
 /* Mobile menu links */
 #kp-nav-menu a {
   transition: color 250ms var(--kp-ease);
+  /* The menu is an opaque bg-mist dropdown, but it lives inside .site-nav, so the
+     broad scroll-state rules (.site-nav a → #fff, .site-nav.scrolled a → #1b3a37)
+     and the Dusk override ([data-theme="dusk"] .site-nav.scrolled a → #fff
+     !important) were forcing these LINKS to the TOP BAR's transparent /
+     dark-on-light scheme. On the light themes (Light / Terracotta) that left
+     white text on the light bg-mist → the dropdown was invisible until you
+     scrolled. Pin the links to the menu's own theme-aware charcoal (the nav's
+     text-charcoal/80 intent: dark on the light themes, light in Dusk where
+     --kp-mist is near-black) so contrast holds in every theme AND both scroll
+     states. !important is required to beat Dusk's `#fff !important`; the ID
+     then out-specifies it ((1,0,1) > (0,3,1)). Scoped to #kp-nav-menu only —
+     the top bar keeps its white-when-transparent / dark-when-scrolled
+     behaviour untouched. */
+  color: rgb(var(--kp-charcoal) / 0.8) !important;
 }
 
 /* --- Cards: hover lift + soft shadow --------------------------------------
@@ -524,6 +538,24 @@ footer a {
 @keyframes kp-wheel {
   0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
   100% { opacity: 0; transform: translateX(-50%) translateY(12px); }
+}
+
+/* Blog CTA pulse — extends the hero__scroll wheel's "decorative, always-
+   animating" precedent (same 1.8s ease-in-out infinite timing) to mark the
+   5th hero button as different-in-kind from the other 4, per Robert's
+   "make it stand out, unambiguous at a glance" requirement (2026-09-17). A
+   radiating ring rather than a color change alone, since the button also
+   already differs from its siblings via the tide color. */
+.kp-cta-blog {
+  animation: kp-cta-pulse 1.8s ease-in-out infinite;
+}
+@keyframes kp-cta-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(156, 201, 194, 0.55); }
+  70%  { box-shadow: 0 0 0 10px rgba(156, 201, 194, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(156, 201, 194, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kp-cta-blog { animation: none; }
 }
 @media (max-width: 720px) {
   .hero__scroll .mouse {
