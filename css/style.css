@@ -540,22 +540,130 @@ footer a {
   100% { opacity: 0; transform: translateX(-50%) translateY(12px); }
 }
 
-/* Blog CTA pulse — extends the hero__scroll wheel's "decorative, always-
-   animating" precedent (same 1.8s ease-in-out infinite timing) to mark the
-   5th hero button as different-in-kind from the other 4, per Robert's
-   "make it stand out, unambiguous at a glance" requirement (2026-09-17). A
-   radiating ring rather than a color change alone, since the button also
-   already differs from its siblings via the tide color. */
-.kp-cta-blog {
-  animation: kp-cta-pulse 1.8s ease-in-out infinite;
+/* .kp-cta — reusable pill button template (originated as the hero "Read Rob's Blog"
+   button, 2026-09-21). Usage: <a class="kp-cta">…</a>; variant .kp-cta--hint for small
+   advisory pills; sub-parts .kp-cta__icon / .kp-cta__arrow. Standalone copy for other
+   sites: RobsNotes/kp-cta-template.css. Original notes:
+   1. A diagonal "shine" sweep every 2.5s (0.45s wipe; was 5s, sped up 2026-09-21) — a narrow band of light
+      (left edge → right edge) glides across the pill on a 115° diagonal,
+      drawn on a pseudo-element so the sweep is clipped to the rounded pill.
+      Replaces the earlier box-shadow pulse (kp-cta-pulse).
+   2. An inline open-book icon sits before the text (see index.html); the
+      .kp-cta__icon class keeps its size inline-consistent with the
+      label and tints it via currentColor so it stays white on tide-600.
+   3. A right-pointing arrow (inline SVG in index.html) nudges right on
+      hover/focus via .kp-cta__arrow.
+   The label itself is wrapped in <span data-i18n="hero.ctaBlog"> in the
+   HTML so i18n replacement targets only the text; icon + arrow are siblings
+   OUTSIDE that span and are left untouched by translation. */
+/* Template base — zero specificity (:where) so Tailwind utilities on an element
+   (like the hero button's) still win, while a bare class="kp-cta" is complete. */
+:where(.kp-cta) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border-radius: 9999px;
+  background-color: rgb(var(--kp-tide-600, 76 140 130));
+  color: #fff;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s;
 }
-@keyframes kp-cta-pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(156, 201, 194, 0.55); }
-  70%  { box-shadow: 0 0 0 10px rgba(156, 201, 194, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(156, 201, 194, 0); }
+@media (min-width: 640px) {
+  :where(.kp-cta) { padding: 0.75rem 1.5rem; font-size: 1rem; line-height: 1.5rem; }
+}
+a.kp-cta:hover, button.kp-cta:hover { background-color: rgb(var(--kp-tide-700, 62 114 105)); }
+/* Small advisory variant (non-interactive hints, e.g. "Try different styles here") */
+.kp-cta--hint {
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+  line-height: 1.1rem;
+  white-space: nowrap;
+}
+@media (min-width: 640px) {
+  .kp-cta--hint { padding: 0.4rem 1rem; font-size: 0.875rem; line-height: 1.25rem; }
+}
+/* "Click anything!" overlay on the block plan: centred in the gap between Store and the
+   bungalows (SVG coords x=217.5, y=407.5 of viewBox -8 0 383 1050). Click-through. */
+.kp-hint-overlay {
+  position: absolute;
+  left: 58.88%;
+  top: 38.81%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+}
+.kp-hint-overlay .kp-cta--hint { padding: 0.25rem 0.6rem; font-size: 0.6875rem; }
+@media (min-width: 640px) {
+  .kp-hint-overlay .kp-cta--hint { padding: 0.4rem 1rem; font-size: 0.875rem; }
+}
+
+.kp-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Diagonal shine sweep — a soft white band, offscreen left at rest, gliding
+   to offscreen right each 5s cycle. The 115° band is produced by skewing a
+   tall, narrow gradient element; the parent's border-radius + overflow:hidden
+   clip it to the pill. translateX(-150%) → 300% guarantees full entry/exit. */
+.kp-cta::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  bottom: -60%;
+  left: 0;
+  width: 42%;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-150%) skewX(-18deg);
+  animation: kp-cta-shine 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes kp-cta-shine {
+  0%   { transform: translateX(-150%) skewX(-18deg); }
+  18%  { transform: translateX(300%) skewX(-18deg); }
+  100% { transform: translateX(300%) skewX(-18deg); }
+}
+/* Open-book icon — sized to sit inline with the sm/text-base label. */
+.kp-cta__icon {
+  width: 1.05em;
+  height: 1.05em;
+  flex-shrink: 0;
+  color: currentColor;
+}
+/* Arrow nudge on hover/focus — the SVG itself is sized via its own class;
+   the transition + translate live here so the arrow is static at rest and
+   nudges 3px to the right on :hover / :focus-visible. */
+.kp-cta__arrow {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  color: currentColor;
+  transition: transform 0.2s ease;
+}
+.kp-cta:hover .kp-cta__arrow,
+.kp-cta:focus-visible .kp-cta__arrow {
+  transform: translateX(3px);
 }
 @media (prefers-reduced-motion: reduce) {
-  .kp-cta-blog { animation: none; }
+  /* Disable all animation on the button: the shine sweep stops, the arrow
+     nudge transition is removed (transform stays at rest), and the box-shadow
+     / color transitions are removed (they're utility-driven but still motion). */
+  .kp-cta::before { animation: none; display: none; }
+  .kp-cta__arrow { transition: none; }
+  .kp-cta:hover .kp-cta__arrow,
+  .kp-cta:focus-visible .kp-cta__arrow {
+    transform: none;
+  }
 }
 @media (max-width: 720px) {
   .hero__scroll .mouse {
@@ -890,4 +998,3 @@ footer a {
 .kp-theme-swatch-light {
   background-color: #ffffff;
 }
-

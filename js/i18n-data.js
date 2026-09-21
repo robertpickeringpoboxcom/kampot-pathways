@@ -68,6 +68,7 @@ const uiStrings = {
     "property.heading": "The Property",
     "property.intro": "An interactive scale plan of the block — 70m deep, 25.6m wide at the riverfront, narrowing to 19m at the street boundary, with the Kampot River running the full length of the top boundary. Click (or tap) any building, room or feature below for photos and details.",
     "property.tapHint": "Tap any coloured area for photos & details. North points right — the top boundary faces West, directly onto the river.",
+    "property.clickHint": "Click anything!",
 
     "property.block.heading": "The block",
     "property.block.body": "70m deep, 25.6m wide at the riverfront narrowing to 19m at the street boundary — an absolute riverfront position. The top boundary is a retaining wall directly on the Kampot River, which is tidal — up to 1.5m of daily sea-water tide. A private timber deck and floating pontoon sit out over the water, reached by a gate and six steps down from the paved Coconut Garden.",
@@ -166,10 +167,14 @@ const uiStrings = {
     "hero.ctaGallery": "មើលវិចិត្រសាលរូបភាព",
     "hero.ctaDevelopment": "អភិវឌ្ឍន៍",
     "hero.ctaMap": "មើលទីតាំងលើ Google Maps",
+    /* machine-translated, not yet reviewed by a native speaker */
+    "hero.ctaBlog": "អានប្លុករបស់ Rob",
+    "nav.blog": "ប្លុករបស់ Rob",
 
     "property.heading": "អចលនទ្រព្យ",
     "property.intro": "ប្លង់មាត្រដ្ឋានអន្តរកម្មនៃដី — ជម្រៅ ៧០ម ទទឹង ២៥,៦ម នៅមាត់ទន្លេ ចង្អៀតមកនៅត្រឹម ១៩ម នៅព្រំដែនផ្លូវ ដោយមានទន្លេកំពតហូរតាមព្រំដែនខាងលើពេញមួយប្រវែង។ ចុច (ឬប៉ះ) លើអគារ បន្ទប់ ឬលក្ខណៈពិសេសណាមួយខាងក្រោម ដើម្បីមើលរូបភាព និងព័ត៌មានលម្អិត។",
     "property.tapHint": "ប៉ះលើផ្ទៃណាមួយដែលមានពណ៌ ដើម្បីមើលរូបភាព និងព័ត៌មានលម្អិត។ ទិសខាងជើងចង្អុលទៅខាងស្តាំ — ព្រំដែនខាងលើបែរទៅទិសខាងលិច ជាប់នឹងទន្លេផ្ទាល់។",
+    "property.clickHint": "ចុចលើអ្វីក៏បាន!",
 
     "property.block.heading": "ដី",
     "property.block.body": "ជម្រៅ ៧០ម ទទឹង ២៥,៦ម នៅមាត់ទន្លេ ចង្អៀតមកនៅត្រឹម ១៩ម នៅព្រំដែនផ្លូវ — ជាដីមុខទន្លេទាំងស្រុង។ ព្រំដែនខាងលើគឺជាជញ្ជាំងទប់ដីនៅជាប់នឹងទន្លេកំពតផ្ទាល់ ដែលមានទឹកជោរ រហូតដល់ ១,៥ម៉ែត្រ ជារៀងរាល់ថ្ងៃ។ ខ្សែក្រាលឈើឯកជន និងអាងបណ្តែតទឹកលាតសន្ធឹងលើទឹក អាចទៅដល់តាមទ្វារ និងជណ្តើរប្រាំមួយជាន់ចុះពីសួនដូងក្រាលថ្ម។",
@@ -268,10 +273,14 @@ const uiStrings = {
     "hero.ctaGallery": "浏览相册",
     "hero.ctaDevelopment": "开发潜力",
     "hero.ctaMap": "在 Google 地图上查看",
+    /* machine-translated, not yet reviewed by a native speaker */
+    "hero.ctaBlog": "阅读 Rob 的博客",
+    "nav.blog": "Rob 的博客",
 
     "property.heading": "地产详情",
     "property.intro": "地块互动比例平面图——纵深70米,临江一端宽25.6米,至临街一端收窄为19米,贡布河沿北侧边界全长流过。点击(或轻触)下方任意建筑、房间或设施即可查看照片与详情。",
     "property.tapHint": "轻触任意色块查看照片与详情。指北针指向右侧——北侧边界朝西,直接面向河流。",
+    "property.clickHint": "点击任意位置！",
 
     "property.block.heading": "地块",
     "property.block.body": "地块纵深70米,临江一端宽25.6米,至临街一端收窄为19米,绝对临江。北侧边界为紧邻贡布河的挡土墙,河水受潮汐影响,每日水位涨落可达1.5米。私人木质露台与浮动码头架设于水面之上,经闸门及六级台阶从铺装的椰子园下行可达。",

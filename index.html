@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth" translate="no">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="google" content="notranslate" />
 <title>Kampot Pathways — Riverfront Property, Kampot, Cambodia</title>
 <meta name="description" content="Absolute riverfront property for sale on the Kampot River, Cambodia. Explore the interactive block plan, house, bungalows and gardens." />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -78,18 +79,17 @@
       </span>
     </a>
 
-    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-charcoal/80">
+    <nav class="hidden xl:flex items-center gap-8 text-sm font-medium text-charcoal/80">
       <a href="#property" data-i18n="nav.property" class="hover:text-river">The Property</a>
       <a href="#gallery" data-i18n="nav.gallery" class="hover:text-river">Gallery</a>
       <a href="#development" data-i18n="nav.development" class="hover:text-river">Development</a>
       <a href="#goods" data-i18n="nav.goods" class="hover:text-river">Goods for Sale</a>
       <a href="#services" data-i18n="nav.services" class="hover:text-river">IT Services</a>
       <a href="#retirement" data-i18n="nav.retirement" class="hover:text-river">Retirement Visa</a>
-      <a href="https://blog.kampotpathways.com" target="_blank" rel="noopener" data-i18n="nav.blog" class="hover:text-river">Rob's Blog</a>
       <a href="#contact" data-i18n="nav.contact" class="hover:text-river">Contact</a>
     </nav>
 
-    <div class="hidden md:flex items-center gap-4">
+    <div class="hidden xl:flex items-center gap-4">
       <!-- ===== LANGUAGE SWITCHER (desktop) =====
            Each button's data-lang is read by js/app.js's setLanguage().
            .kp-lang-active (see css/style.css) marks the current one. -->
@@ -125,7 +125,7 @@
          is now ~36-38px tall/wide with clear separation, confirmed to
          still fit next to the logo and menu icon down to a 360px-wide
          viewport (older/smaller phones), not just 375px+. -->
-    <div class="flex md:hidden items-center gap-2 text-sm font-medium text-charcoal/70 mr-1">
+    <div class="flex xl:hidden items-center gap-2 text-sm font-medium text-charcoal/70 mr-1">
       <button type="button" data-lang="en" class="kp-lang-btn px-2.5 py-2 rounded" aria-pressed="true">EN</button>
       <button type="button" data-lang="km" class="kp-lang-btn px-2.5 py-2 rounded" aria-pressed="false">ខ្មែរ</button>
       <button type="button" data-lang="zh" class="kp-lang-btn px-2.5 py-2 rounded" aria-pressed="false">中文</button>
@@ -137,7 +137,7 @@
       aria-expanded="false"
       aria-controls="kp-nav-menu"
       data-i18n-aria-label="nav.toggle"
-      class="md:hidden p-2 -mr-2 text-river"
+      class="xl:hidden p-2 -mr-2 text-river"
     >
       <span class="sr-only">Toggle menu</span>
       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -146,7 +146,7 @@
     </button>
   </div>
 
-  <nav id="kp-nav-menu" class="hidden md:hidden border-t border-river/10 bg-mist px-4 py-3 flex flex-col gap-3 text-sm font-medium text-charcoal/80">
+  <nav id="kp-nav-menu" class="hidden xl:hidden border-t border-river/10 bg-mist px-4 py-3 flex flex-col gap-3 text-sm font-medium text-charcoal/80">
     <a href="#property" data-i18n="nav.property" class="py-1">The Property</a>
     <a href="#gallery" data-i18n="nav.gallery" class="py-1">Gallery</a>
     <a href="#development" data-i18n="nav.development" class="py-1">Development</a>
@@ -189,8 +189,14 @@
       <a href="https://www.google.com/maps/place/10%C2%B034'54.8%22N+104%C2%B010'24.5%22E/@10.581875,104.173478,17z/data=!3m1!4b1!4m4!3m3!8m2!3d10.581875!4d104.173478?entry=ttu&amp;g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" data-i18n="hero.ctaMap" class="flex sm:inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm sm:text-base font-medium border border-white/40 transition-colors">
         View on Google Maps
       </a>
-      <a href="https://blog.kampotpathways.com" target="_blank" rel="noopener" data-i18n="hero.ctaBlog" class="kp-cta-blog flex sm:inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 rounded-full bg-tide-600 hover:bg-tide-700 text-white text-sm sm:text-base font-medium transition-colors">
-        Read Rob's Blog
+      <a href="https://blog.kampotpathways.com" target="_blank" rel="noopener" class="kp-cta flex sm:inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 rounded-full bg-tide-600 hover:bg-tide-700 text-white text-sm sm:text-base font-medium transition-colors">
+        <svg class="kp-cta__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+        </svg>
+        <span data-i18n="hero.ctaBlog">Read Rob's Blog</span>
+        <svg class="kp-cta__arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+        </svg>
       </a>
     </div>
   </div>
@@ -219,6 +225,7 @@
     <div class="flex flex-col items-center gap-10">
       <div class="kp-plan-frame w-full max-w-4xl bg-white rounded-2xl border border-coconut p-4 sm:p-6 shadow-sm">
         <!-- ===== BLOCK PLAN SVG (inline — hydrated with click handlers by js/app.js) ===== -->
+        <div class="relative">
         <svg
    id="block-plan"
    viewBox="-8 0 383 1050"
@@ -1093,6 +1100,8 @@
      x="222.74977"
      y="116.58527" />
 </svg>
+          <div class="kp-hint-overlay"><span class="kp-cta kp-cta--hint" data-i18n="property.clickHint">Click anything!</span></div>
+        </div>
         <p data-i18n="property.tapHint" class="text-xs text-charcoal/60 mt-3 text-center">
           Tap any coloured area for photos &amp; details. North points right — the top boundary faces West, directly onto the river.
         </p>
@@ -1249,9 +1258,9 @@
          prompt line translates via data-i18n (services.themePrompt, added in chunk 4);
          button aria-labels stay English per decision 3A. Active button gets an
          accent outline via [data-theme-active] (chunk 4 CSS/JS). -->
-    <p class="mt-6 flex items-center gap-1 text-sm font-medium text-charcoal/80">
+    <p class="kp-cta kp-cta--hint mt-6 gap-1">
       <span data-i18n="services.themePrompt">Try different styles here</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-charcoal/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
       </svg>
     </p>
@@ -1291,6 +1300,15 @@
       Retirement Visa costs $300 p.a. and is typically processed in around
       10 days.
     </p>
+    <a href="https://blog.kampotpathways.com" target="_blank" rel="noopener" class="kp-cta mt-6 flex sm:inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 rounded-full bg-tide-600 hover:bg-tide-700 text-white text-sm sm:text-base font-medium transition-colors">
+      <svg class="kp-cta__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+      </svg>
+      <span data-i18n="hero.ctaBlog">Read Rob's Blog</span>
+      <svg class="kp-cta__arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+      </svg>
+    </a>
   </div>
 </section>
 
