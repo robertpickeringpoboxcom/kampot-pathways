@@ -577,6 +577,21 @@ footer a {
   :where(.kp-cta) { padding: 0.75rem 1.5rem; font-size: 1rem; line-height: 1.5rem; }
 }
 a.kp-cta:hover, button.kp-cta:hover { background-color: rgb(var(--kp-tide-700, 62 114 105)); }
+/* <button class="kp-cta"> — Tailwind's preflight resets `button` (transparent bg, padding 0,
+   inherited font) with higher specificity than the :where() base above, so restate it here. */
+button.kp-cta {
+  cursor: pointer;
+  border: 0;
+  padding: 0.625rem 1rem;
+  background-color: rgb(var(--kp-tide-600, 76 140 130));
+  color: #fff;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+@media (min-width: 640px) {
+  button.kp-cta { padding: 0.75rem 1.5rem; font-size: 1rem; line-height: 1.5rem; }
+}
 /* Small advisory variant (non-interactive hints, e.g. "Try different styles here") */
 .kp-cta--hint {
   padding: 0.3rem 0.8rem;
